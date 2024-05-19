@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class EmailSender{
     Scanner scanner = new Scanner(System.in);
-        System.out.print("Email adresiniz: ");
+    System.out.print("Email adresiniz: ");
     String emailInput = scanner.nextLine();
 
     final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
@@ -38,6 +38,6 @@ public class EmailSender{
         System.out.println("Exception: " + me);
     }
 
-    
+
 }
 
