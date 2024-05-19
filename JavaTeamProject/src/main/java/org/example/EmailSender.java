@@ -6,7 +6,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class Main {
+public class EmailSender {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Email adresiniz: ");
