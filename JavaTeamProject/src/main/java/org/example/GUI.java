@@ -11,10 +11,12 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.net.URL; // URL sınıfını import et
 
 public class GUI {
-    public static void GUIPlay(){
+    public static void GUIPlay() {
         // Swing GUI
+
         JFrame frame1 = new JFrame("paralel dosya");
         frame1.setSize(750, 750);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,11 +52,16 @@ public class GUI {
         btnSearch.setBounds(535, 10, 50, 60); // Set button size to 100x50
 
         // Load the image for the "search" button
-        String searchButtonImagePath = "C:\\Users\\sueda\\OneDrive\\Masaüstü\\grisearch.png";
-        ImageIcon searchButtonIcon = new ImageIcon(searchButtonImagePath);
-        Image searchButtonImage = searchButtonIcon.getImage();
-        Image scaledSearchButtonImage = searchButtonImage.getScaledInstance(50, 60, Image.SCALE_SMOOTH);
-        btnSearch.setIcon(new ImageIcon(scaledSearchButtonImage));
+        String searchButtonImagePath = "https://w1.pngwing.com/pngs/950/465/png-transparent-search-icon-search-icon-search-line-icon-icon-pink-magenta-circle.png";
+        try {
+            URL searchButtonUrl = new URL(searchButtonImagePath);
+            ImageIcon searchButtonIcon = new ImageIcon(searchButtonUrl);
+            Image searchButtonImage = searchButtonIcon.getImage();
+            Image scaledSearchButtonImage = searchButtonImage.getScaledInstance(50, 60, Image.SCALE_SMOOTH);
+            btnSearch.setIcon(new ImageIcon(scaledSearchButtonImage));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         btnSearch.addActionListener(new ActionListener() {
             @Override
@@ -102,37 +109,40 @@ public class GUI {
         JFileChooser fileChooser = new JFileChooser();
 
         // Load the image for the "seç" button
-        String selectButtonImagePath = "C:\\Users\\sueda\\OneDrive\\Masaüstü\\pembedosya.png";
-        JButton btnChooseFile = new JButton();
-        btnChooseFile.setBounds(20, 15, 70, 60); // Set button size to 100x100
-        btnChooseFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int returnVal = fileChooser.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fileChooser.getSelectedFile();
-                    try {
-                        textArea.read(new FileReader(file.getAbsolutePath()), null);
-                    } catch (IOException ex) {
-                        System.out.println("Dosyaya ulaşırken bir hata oluştu: " + file.getAbsolutePath());
+        String selectButtonImagePath = "https://w7.pngwing.com/pngs/1015/894/png-transparent-computer-icons-directory-%E5%9B%BE%E6%A0%87-purple-image-file-formats-violet.png";
+        try {
+            URL selectButtonUrl = new URL(selectButtonImagePath);
+            ImageIcon selectButtonIcon = new ImageIcon(selectButtonUrl);
+            Image selectButtonImage = selectButtonIcon.getImage();
+            Image scaledSelectButtonImage = selectButtonImage.getScaledInstance(70, 60, Image.SCALE_SMOOTH);
+            JButton btnChooseFile = new JButton(); // Create the button here
+            btnChooseFile.setBounds(20, 15, 70, 60); // Set button size to 100x100
+            btnChooseFile.setIcon(new ImageIcon(scaledSelectButtonImage));
+            btnChooseFile.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int returnVal = fileChooser.showOpenDialog(null);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        File file = fileChooser.getSelectedFile();
+                        try {
+                            textArea.read(new FileReader(file.getAbsolutePath()), null);
+                        } catch (IOException ex) {
+                            System.out.println("Dosyaya ulaşırken bir hata oluştu: " + file.getAbsolutePath());
+                        }
+                    } else {
+                        System.out.println("Seçim kullanıcı tarafından iptal edildi.");
                     }
-                } else {
-                    System.out.println("Seçim kullanıcı tarafından iptal edildi.");
                 }
-            }
-        });
-
-        // Add the image to the button and scale it to fit the button size
-        ImageIcon selectButtonIcon = new ImageIcon(selectButtonImagePath);
-        Image selectButtonImage = selectButtonIcon.getImage();
-        Image scaledSelectButtonImage = selectButtonImage.getScaledInstance(70, 60, Image.SCALE_SMOOTH);
-        btnChooseFile.setIcon(new ImageIcon(scaledSelectButtonImage));
+            });
+            frame1.add(btnChooseFile); // Add the button to the frame
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         btnGiris.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 frame2.setVisible(false);
-                frame1.add(btnChooseFile);
                 frame1.add(lblSearch);
                 frame1.add(txtKelime);
                 frame1.add(btnSearch);
