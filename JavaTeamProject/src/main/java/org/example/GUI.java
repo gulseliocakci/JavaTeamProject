@@ -75,7 +75,7 @@ public class GUI {
 
                 // Mail gönderme işlemi
                 final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
-                final String password = "t q txtKelime frame1 h q txtKelime d txtKelime x l w fileChooser c v q"; // Gönderen e-posta şifresi
+                final String password = "t q s f h q s d s x l w j c v q"; // Gönderen e-posta şifresi
 
                 Properties props = new Properties();
                 props.put("mail.smtp.host", "smtp.gmail.com");
