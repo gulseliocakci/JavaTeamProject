@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.Properties;
 
 public class EmailSender {
-    private static final String USERNAME = "serpil.ustebay@gmail.com";
-    private static final String PASSWORD = "";
+    private static final String USERNAME = "ggulseliocakci@gmail.com";
+    private static final String PASSWORD = "ulam puts elzd kgvu";
     private static final String HOST = "smtp.gmail.com";
     private static final String PORT = "587";
 
