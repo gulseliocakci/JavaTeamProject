@@ -21,8 +21,8 @@ public class GUI extends EmailSender{
         s2.setBounds(150,39,200,18);
     JButton btnGiris=new JButton("giris");
         btnGiris.setBounds(150,100,100,25);
-    email= btnGiris.getText();
-
+    String email= btnGiris.getText();
+    sendPlainTextEmail("ggulseliocakci@gmail.com",email,"java","yetooo",true);
     JTextArea s=new JTextArea();
         s.setBounds(230,25,250,20);
     JLabel l1=new JLabel("kelime sayısı:");
@@ -46,6 +46,7 @@ public class GUI extends EmailSender{
 
         }
     });
+
 
     JLabel lb=new JLabel("search word");
         lb.setBounds(140,0,100,70);

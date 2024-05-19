@@ -15,7 +15,6 @@ public class EmailSender{
     private static final String PASSWORD = "ulam puts elzd kgvu";
     private static final String HOST = "smtp.gmail.com";
     private static final String PORT = "587";
-    String email;
 
     public static void sendPlainTextEmail(String from, String to, String subject, String message, boolean debug) {
         Properties prop = new Properties();
