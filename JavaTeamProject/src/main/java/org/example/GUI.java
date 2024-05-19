@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class GUI {
-    public static void GUIPlay() {
+    public static void GUIPlay(){
         // Swing GUI
         JFrame f = new JFrame("paralel dosya");
         f.setSize(750, 750);
