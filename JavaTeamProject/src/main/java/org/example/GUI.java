@@ -22,7 +22,7 @@ public class GUI extends EmailSender{
     JButton btnGiris=new JButton("giris");
         btnGiris.setBounds(150,100,100,25);
     String email= btnGiris.getText();
-    sendPlainTextEmail("ggulseliocakci@gmail.com",email,"java örnek","yardım ettt yardımmm",true);
+    //sendPlainTextEmail("ggulseliocakci@gmail.com",email,"java örnek","yardım ettt yardımmm",true);
 
     JTextArea s=new JTextArea();
         s.setBounds(230,25,250,20);
