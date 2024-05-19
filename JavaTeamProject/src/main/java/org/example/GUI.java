@@ -21,7 +21,7 @@ public class GUI extends EmailSender{
         s2.setBounds(150,39,200,18);
     JButton btnGiris=new JButton("giris");
         btnGiris.setBounds(150,100,100,25);
-    String email= btnGiris.getText();
+    email= btnGiris.getText();
 
     JTextArea s=new JTextArea();
         s.setBounds(230,25,250,20);
