@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class GUI  {
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
         public void GUI(){
 
     JFrame f= new JFrame("paralel dosya");
