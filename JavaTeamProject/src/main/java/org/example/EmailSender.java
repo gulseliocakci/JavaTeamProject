@@ -10,7 +10,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
-public class EmailSender {
+public class EmailSender extends GUI{
     private static final String USERNAME = "ggulseliocakci@gmail.com";
     private static final String PASSWORD = "ulam puts elzd kgvu";
     private static final String HOST = "smtp.gmail.com";
@@ -36,8 +36,6 @@ public class EmailSender {
         session.setDebug(debug);
 
         try {
-
-// create a message with headers
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(from));
             InternetAddress[] address = {new InternetAddress(to)};
