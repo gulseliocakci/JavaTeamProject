@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class EmailSender {
     public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Email adresiniz: ");
-//        String emailInput = scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Email adresiniz: ");
+        String emailInput = scanner.nextLine();
 
         final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
         final String password = "t q s f h q s d s x l w j c v q"; // Gönderen e-posta şifresi
