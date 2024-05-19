@@ -42,8 +42,6 @@ public class EmailSender extends GUI{
             msg.setSubject(subject);
             msg.setText(message);
             msg.setSentDate(new Date());
-
-// send the message
             Transport.send(msg);
 
         } catch (MessagingException mex) {
