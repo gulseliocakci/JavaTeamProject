@@ -17,8 +17,7 @@ public class EmailSender{
     private static final String PORT = "587";
     String email;
 
-    public static void sendPlainTextEmail(String from, String email, String subject, String message, boolean debug) {
-
+    public static void sendPlainTextEmail(String from, String to, String subject, String message, boolean debug) {
         Properties prop = new Properties();
         prop.put("mail.smtp.host", HOST);
         prop.put("mail.smtp.port", PORT);
@@ -38,7 +37,7 @@ public class EmailSender{
         try {
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(from));
-            InternetAddress[] address = {new InternetAddress(email)};
+            InternetAddress[] address = {new InternetAddress(to)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
             msg.setText(message);
