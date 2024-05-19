@@ -8,9 +8,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class GUI  {
-   // public static void main(String[] args) {
-        public void GUI(){
+public class GUI extends EmailSender{
+    public void GUI(){
 
     JFrame f= new JFrame("paralel dosya");
         f.setSize(750,750);
@@ -22,7 +21,7 @@ public class GUI  {
         s2.setBounds(150,39,200,18);
     JButton btnGiris=new JButton("giris");
         btnGiris.setBounds(150,100,100,25);
-    String email= btnGiris.getText();
+    email= btnGiris.getText();
 
     JTextArea s=new JTextArea();
         s.setBounds(230,25,250,20);

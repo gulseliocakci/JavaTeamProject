@@ -10,13 +10,14 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
-public class EmailSender extends GUI{
+public class EmailSender{
     private static final String USERNAME = "ggulseliocakci@gmail.com";
     private static final String PASSWORD = "ulam puts elzd kgvu";
     private static final String HOST = "smtp.gmail.com";
     private static final String PORT = "587";
+    String email;
 
-    public static void sendPlainTextEmail(String from, String to, String subject, String message, boolean debug) {
+    public static void sendPlainTextEmail(String from, String email, String subject, String message, boolean debug) {
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", HOST);
@@ -37,7 +38,7 @@ public class EmailSender extends GUI{
         try {
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(from));
-            InternetAddress[] address = {new InternetAddress(to)};
+            InternetAddress[] address = {new InternetAddress(email)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
             msg.setText(message);
