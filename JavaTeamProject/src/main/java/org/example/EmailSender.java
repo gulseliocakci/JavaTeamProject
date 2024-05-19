@@ -16,7 +16,6 @@ public class EmailSender extends GUI{
     private static final String HOST = "smtp.gmail.com";
     private static final String PORT = "587";
 
-
     public static void sendPlainTextEmail(String from, String to, String subject, String message, boolean debug) {
 
         Properties prop = new Properties();
