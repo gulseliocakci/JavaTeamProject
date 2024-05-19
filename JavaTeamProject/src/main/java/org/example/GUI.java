@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class GUI {
+    public static void main(String[] args) {
+
     JFrame f= new JFrame("paralel dosya");
         f.setSize(750,750);
     JFrame f2=new JFrame("mail");
