@@ -35,7 +35,8 @@ public class Cekirdek {
             int bytesRead;
             int chunkNumber = 1;
 
-            ExecutorService executorService = Executors.newFixedThreadPool(5); // 5 çekirdekli bir havuz oluştur
+            int cekirdekSayisi = Runtime.getRuntime().availableProcessors();
+            ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
             List<Future<Integer>> futures = new ArrayList<>(); // Future nesnelerini tutacak liste
 
             while ((bytesRead = reader.read(buffer)) != -1) {
