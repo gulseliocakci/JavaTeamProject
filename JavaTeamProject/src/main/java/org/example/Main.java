@@ -7,7 +7,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                org.example.demo4.GUI.GUIPlay();
+                org.example.GUI.GUIPlay();
             }
         });
     }

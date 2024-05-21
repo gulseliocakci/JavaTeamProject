@@ -13,9 +13,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Cekirdek {
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 
     private String txtKelime;
     private String filePath;
@@ -97,7 +94,5 @@ public class Cekirdek {
             return count;
         }
     }
-=======
->>>>>>> f673e638fa50135ed28515a30fff280b9cab0b4d
->>>>>>> Stashed changes
+
 }

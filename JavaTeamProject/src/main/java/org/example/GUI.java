@@ -1,6 +1,4 @@
-package org.example.demo4;
-
-import socketapp.Cekirdek;
+package org.example;
 
 import javax.mail.internet.AddressException;
 import javax.swing.*;
