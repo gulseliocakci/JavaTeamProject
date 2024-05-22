@@ -2,12 +2,12 @@ package org.example;
 
 import javax.mail.internet.AddressException;
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -125,6 +125,8 @@ public class GUI {
 
                 cekirdek.cekirdeklereBolme();
                 int total = cekirdek.getTotalCount();
+                highlightWords(textArea, kelime);
+
                 String[] options = {"Evet, lütfen.", "Hayır, teşekkürler."};
                 int result = JOptionPane.showOptionDialog(
                         frame1,
@@ -138,11 +140,27 @@ public class GUI {
                 );
 
                 if (result == JOptionPane.YES_OPTION) {
-                    EmailGonder email=new EmailGonder(kelime, total);
+                    EmailGonder email = new EmailGonder(kelime, total);
                 }
             }
         });
 
         frame1.setVisible(true);
+    }
+
+    private static void highlightWords(JTextArea textArea, String word) {
+        try {
+            Highlighter highlighter = textArea.getHighlighter();
+            Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+            String text = textArea.getText();
+            int pos = 0;
+
+            while ((pos = text.indexOf(word, pos)) >= 0) {
+                highlighter.addHighlight(pos, pos + word.length(), painter);
+                pos += word.length();
+            }
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 }
