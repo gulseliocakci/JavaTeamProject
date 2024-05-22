@@ -47,7 +47,6 @@ public class Cekirdek {
                 futures.add(future); // Future nesnesini listeye ekle
                 chunkNumber++;
             }
-
             // Future nesnelerini izleme ve sonuçları alabilme
             totalCount = 0;
             for (Future<Integer> future : futures) {
