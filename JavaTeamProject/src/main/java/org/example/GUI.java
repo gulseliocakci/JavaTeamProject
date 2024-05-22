@@ -131,84 +131,13 @@ public class GUI {
                         "Swing Tester",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[0]
+                        null,     // no custom icon
+                        options,  // button titles
+                        options[0] // default button
                 );
 
                 if (result == JOptionPane.YES_OPTION) {
-                    JFrame frame2 = new JFrame("Mail");
-                    frame2.setSize(400, 200);
-                    frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame2.setLayout(new GridBagLayout());
-                    GridBagConstraints gbc2 = new GridBagConstraints();
-                    gbc2.insets = new Insets(5, 5, 5, 5);
-
-                    JLabel lblEmail = new JLabel("Email adresinizi giriniz:");
-                    gbc2.gridx = 0;
-                    gbc2.gridy = 0;
-                    frame2.add(lblEmail, gbc2);
-
-                    JTextArea txtEmail = new JTextArea();
-                    gbc2.gridx = 1;
-                    gbc2.gridy = 0;
-                    txtEmail.setPreferredSize(new Dimension(200, 18));
-                    frame2.add(txtEmail, gbc2);
-
-                    JButton btnGiris = new JButton("Gönder");
-                    gbc2.gridx = 1;
-                    gbc2.gridy = 1;
-                    frame2.add(btnGiris, gbc2);
-
-                    btnGiris.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            String emailInput = txtEmail.getText().trim();
-
-                            if (emailInput.isEmpty()) {
-                                JOptionPane.showMessageDialog(frame1, "Lütfen geçerli bir e-posta adresi giriniz.");
-                                return;
-                            }
-
-                            // Mail gönderme işlemi
-                            final String userName = "suedanursarican233@gmail.com";
-                            final String password = "t q s f h q s d s x l w j c v q";
-
-                            Properties props = new Properties();
-                            props.put("mail.smtp.host", "smtp.gmail.com");
-                            props.put("mail.smtp.port", "587");
-                            props.put("mail.smtp.auth", "true");
-                            props.put("mail.smtp.starttls.enable", "true");
-
-                            Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-                                protected PasswordAuthentication getPasswordAuthentication() {
-                                    return new PasswordAuthentication(userName, password);
-                                }
-                            });
-
-                            try {
-                                MimeMessage message = new MimeMessage(session);
-                                message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailInput));
-                                message.setSubject("Dosyada kelime bulma");
-                                message.setText("Merhabalar,\n" +
-                                        "\n" +
-                                        "İlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n" +
-                                        "\n" +
-                                        "-Aranan Kelime: " + txtKelime.getText() + "\n" +
-                                        "-Toplam Bulunan Sayı: " + total);
-                                System.out.println("Mail Gönderiliyor...");
-                                Transport.send(message);
-                                System.out.println("Mail Başarıyla Gönderildi....");
-                                JOptionPane.showMessageDialog(frame2, "Mail Başarıyla Gönderildi....");
-                            } catch (AddressException ae) {
-                                JOptionPane.showMessageDialog(frame2, "Geçersiz e-posta adresi: " + emailInput);
-                            } catch (MessagingException me) {
-                                me.printStackTrace();
-                            }
-                        }
-                    });
-                    frame2.setLocationRelativeTo(null);
-                    frame2.setVisible(true);
+                    EmailGonder email=new EmailGonder(kelime, total);
                 }
             }
         });

@@ -38,6 +38,7 @@ public class Cekirdek {
             int cekirdekSayisi = Runtime.getRuntime().availableProcessors();
 
             ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
+
             List<Future<Integer>> futures = new ArrayList<>(); // Future nesnelerini tutacak liste
 
             while ((bytesRead = reader.read(buffer)) != -1) {
