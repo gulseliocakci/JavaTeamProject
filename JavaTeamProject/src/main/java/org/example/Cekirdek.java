@@ -36,6 +36,7 @@ public class Cekirdek {
             int chunkNumber = 1;
 
             int cekirdekSayisi = Runtime.getRuntime().availableProcessors();
+
             ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
             List<Future<Integer>> futures = new ArrayList<>(); // Future nesnelerini tutacak liste
 

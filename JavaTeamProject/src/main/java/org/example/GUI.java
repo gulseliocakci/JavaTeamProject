@@ -36,19 +36,24 @@ public class GUI {
         topPanel.add(new JLabel("Aranacak Kelime:"), gbc);
 
         gbc.gridx = 2;
+        gbc.gridy = 0;
         JTextArea txtKelime = new JTextArea(1, 20);
         topPanel.add(txtKelime, gbc);
 
-        gbc.gridx = 3;
+        // Kelime ve karakter sayısı etiketleri
+        gbc.gridx = 1;
+        gbc.gridy = 2;
         JLabel lblKelime = new JLabel("Kelime sayısı:");
         topPanel.add(lblKelime, gbc);
 
-        gbc.gridx = 5;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
         JLabel lblKarakter = new JLabel("Karakter sayısı:");
         topPanel.add(lblKarakter, gbc);
 
-
+        // Dosya seçme butonu
         gbc.gridx = 0;
+        gbc.gridy = 0;
         JButton btnChooseFile = new JButton();
         try {
             URL selectButtonUrl = new URL("https://w7.pngwing.com/pngs/1015/894/png-transparent-computer-icons-directory-%E5%9B%BE%E6%A0%87-purple-image-file-formats-violet.png");
@@ -62,8 +67,9 @@ public class GUI {
         btnChooseFile.setPreferredSize(new Dimension(70, 60));
         topPanel.add(btnChooseFile, gbc);
 
-
+        // Arama butonu
         gbc.gridx = 7;
+        gbc.gridy = 0;
         JButton btnSearch = new JButton();
         try {
             URL searchButtonUrl = new URL("https://w1.pngwing.com/pngs/950/465/png-transparent-search-icon-search-icon-search-line-icon-icon-pink-magenta-circle.png");
