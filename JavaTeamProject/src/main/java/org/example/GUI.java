@@ -25,12 +25,10 @@ public class GUI {
         frame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame1.setLayout(new BorderLayout());
 
-
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
-
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -100,11 +98,15 @@ public class GUI {
                 int returnVal = fileChooser.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    try {
-                        textArea.read(new FileReader(file.getAbsolutePath()), null);
-                        textArea.setCaretPosition(0);
-                    } catch (IOException ex) {
-                        System.out.println("Dosyaya ulaşırken bir hata oluştu: " + file.getAbsolutePath());
+                    if (isTextFile(file)) {
+                        try {
+                            textArea.read(new FileReader(file.getAbsolutePath()), null);
+                            textArea.setCaretPosition(0);
+                        } catch (IOException ex) {
+                            System.out.println("Dosyaya ulaşırken bir hata oluştu: " + file.getAbsolutePath());
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(frame1, "Lütfen bir metin dosyası seçin.", "Geçersiz Dosya", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     System.out.println("Seçim kullanıcı tarafından iptal edildi.");
@@ -115,7 +117,6 @@ public class GUI {
                 lblKarakter.setText("Karakter sayısı: " + (text.length() - 1));
             }
         });
-
 
         btnSearch.addActionListener(new ActionListener() {
             @Override
@@ -146,6 +147,17 @@ public class GUI {
         });
 
         frame1.setVisible(true);
+    }
+
+    private static boolean isTextFile(File file) {
+        String[] textFileExtensions = { "txt", "java", "xml", "html", "htm", "csv", "json" };
+        String fileName = file.getName();
+        for (String extension : textFileExtensions) {
+            if (fileName.endsWith("." + extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void highlightWords(JTextArea textArea, String word) {
