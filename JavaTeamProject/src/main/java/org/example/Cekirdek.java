@@ -28,7 +28,7 @@ public class Cekirdek {
     }
 
     public void cekirdeklereBolme() {
-        int chunkSize = 4096; // Parça boyutu (örneğin, 1 KB)
+        int chunkSize = 4096;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             char[] buffer = new char[chunkSize];
@@ -77,7 +77,7 @@ public class Cekirdek {
 
         @Override
         public Integer call() {
-            // 'word' kelimesinin sayısını bul
+           //kelime sayısı
 
             int count = countOccurrences(data, word);
             System.out.println("Gelen parça işlendi, bulunan  sayısı: " + count);

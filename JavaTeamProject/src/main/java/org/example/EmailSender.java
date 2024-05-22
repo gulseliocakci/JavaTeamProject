@@ -12,8 +12,8 @@ public class EmailSender {
         System.out.print("Email adresiniz: ");
         String emailInput = scanner.nextLine();
 
-        final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
-        final String password = "t q s f h q s d s x l w j c v q"; // Gönderen e-posta şifresi
+        final String userName = "suedanursarican233@gmail.com";
+        final String password = "t q s f h q s d s x l w j c v q";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");

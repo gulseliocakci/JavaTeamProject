@@ -21,16 +21,16 @@ public class GUI {
 
         JFrame frame1 = new JFrame("Paralel Dosya");
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame1.setExtendedState(JFrame.MAXIMIZED_BOTH); // Tam ekran modu
+        frame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame1.setLayout(new BorderLayout());
 
-        // Üst panel: arama kelimesi ve dosya seçimi
+
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Arama kelimesi alanı
+
         gbc.gridx = 1;
         gbc.gridy = 0;
         topPanel.add(new JLabel("Aranacak Kelime:"), gbc);
@@ -39,7 +39,6 @@ public class GUI {
         JTextArea txtKelime = new JTextArea(1, 20);
         topPanel.add(txtKelime, gbc);
 
-        // Kelime ve karakter sayısı etiketleri
         gbc.gridx = 3;
         JLabel lblKelime = new JLabel("Kelime sayısı:");
         topPanel.add(lblKelime, gbc);
@@ -48,7 +47,7 @@ public class GUI {
         JLabel lblKarakter = new JLabel("Karakter sayısı:");
         topPanel.add(lblKarakter, gbc);
 
-        // Dosya seçme butonu
+
         gbc.gridx = 0;
         JButton btnChooseFile = new JButton();
         try {
@@ -63,7 +62,7 @@ public class GUI {
         btnChooseFile.setPreferredSize(new Dimension(70, 60));
         topPanel.add(btnChooseFile, gbc);
 
-        // Arama butonu
+
         gbc.gridx = 7;
         JButton btnSearch = new JButton();
         try {
@@ -80,7 +79,6 @@ public class GUI {
 
         frame1.add(topPanel, BorderLayout.NORTH);
 
-        // Metin alanı ve kaydırma paneli
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         frame1.add(scrollPane, BorderLayout.CENTER);
@@ -89,7 +87,6 @@ public class GUI {
 
         JFileChooser fileChooser = new JFileChooser();
 
-        // Dosya seçme butonu işlemi
         btnChooseFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,7 +109,7 @@ public class GUI {
             }
         });
 
-        // Arama butonu işlemi
+
         btnSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -128,9 +125,9 @@ public class GUI {
                         "Swing Tester",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
-                        null,     // no custom icon
-                        options,  // button titles
-                        options[0] // default button
+                        null,
+                        options,
+                        options[0]
                 );
 
                 if (result == JOptionPane.YES_OPTION) {
@@ -168,8 +165,8 @@ public class GUI {
                             }
 
                             // Mail gönderme işlemi
-                            final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
-                            final String password = "t q s f h q s d s x l w j c v q"; // Gönderen e-posta şifresi
+                            final String userName = "suedanursarican233@gmail.com";
+                            final String password = "t q s f h q s d s x l w j c v q";
 
                             Properties props = new Properties();
                             props.put("mail.smtp.host", "smtp.gmail.com");
