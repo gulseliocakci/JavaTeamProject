@@ -5,18 +5,6 @@ import java.io.*;
 import java.net.*;
 
 public class Server {
-    private static void createAndShowGUI() {
-        sendFileButton.addActionListener(e -> {
-            // Sunucu sayısını al
-            String input = JOptionPane.showInputDialog("Kaç sunucuya dosya göndermek istiyorsunuz?");
-            int numberOfServers = Integer.parseInt(input);
-            sendFileToServers(numberOfServers);
-        });
-
-        frame.getContentPane().add(sendFileButton);
-        frame.setVisible(true);
-    }
-
     private static void sendFileToServers(int numberOfServers) {
         String[] serverIPs = {"192.168.1.94", "192.168.1.36", "192.168.1.40"}; // Manuel olarak girilmiş IP adresleri
         int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
