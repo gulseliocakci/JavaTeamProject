@@ -5,9 +5,23 @@ import java.io.*;
 import java.net.*;
 
 public class Server extends GUI{
+    private String txtKelime1;
+    private static String dosyaYolu1;
+    private int toplamKelimeSayisi;
+
+    public Server(File dosyaYolu, String txtKelime) {
+        this.dosyaYolu1 = dosyaYolu.getAbsolutePath();
+        this.txtKelime1 = txtKelime;
+    }
+
+    public int getToplamKelimeSayisi() {
+        return toplamKelimeSayisi;
+    }
 
     private static void sendFileToServers() {
+
         int numberOfServers = getNumberOfServers();
+
 
         String[] serverIPs = {"192.168.1.94", "192.168.1.36", "192.168.1.40"}; // Manuel olarak girilmiş IP adresleri
         int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
@@ -22,7 +36,7 @@ public class Server extends GUI{
 
             try {
                 // Dosyanın içeriğini bir StringBuilder'a yükle
-                BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
+                BufferedReader reader = new BufferedReader(new FileReader((dosyaYolu1)));
                 StringBuilder content = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {

@@ -397,7 +397,7 @@ public class GUI{
                 );
 
                 if (result == JOptionPane.YES_OPTION) {
-                    org.example.demo4.EmailGonder email = new org.example.demo4.EmailGonder(kelime, total);
+                    org.example.EmailGonder email = new org.example.EmailGonder(kelime, total);
                 }
 
 
