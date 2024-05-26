@@ -55,8 +55,7 @@ public class Server extends GUI{
                     toplamKelimeSayisi=totalOccurrences;
                 }
 
-                // Sonuçları bir pop-up mesajında göster
-                JOptionPane.showMessageDialog(null, "Toplam kelime sayısı: " + totalOccurrences, "Arama Sonuçları", JOptionPane.INFORMATION_MESSAGE);
+
 
             } catch (IOException e) {
                 System.err.println("I/O hatası: " + e.getMessage());
