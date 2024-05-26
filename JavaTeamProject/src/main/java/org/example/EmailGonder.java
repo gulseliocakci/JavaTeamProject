@@ -80,18 +80,14 @@ public class EmailGonder extends JFrame {
 
         try {
             MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userName)); // E-posta göndericisini belirler
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailInput));
             message.setSubject("Dosyada kelime bulma");
-            message.setText("Merhabalar,\n" +
-                    "\n" +
-                    "İlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n" +
-                    "\n" +
-                    "- Aranan Kelime: " + kelime + "\n" +
-                    "- Toplam Bulunan Sayı: " + total);
+            message.setText("Merhabalar,\n\nİlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n\n- Aranan Kelime: " + kelime + "\n- Toplam Bulunan Sayı: " + total);
             System.out.println("Mail Gönderiliyor...");
             Transport.send(message);
-            System.out.println("Mail Başarıyla Gönderildi....");
-            JOptionPane.showMessageDialog(frame, "Mail Başarıyla Gönderildi....");
+            System.out.println("Mail Başarıyla Gönderildi.");
+            JOptionPane.showMessageDialog(frame, "Mail başarıyla gönderildi.");
         } catch (AddressException ae) {
             JOptionPane.showMessageDialog(frame, "Geçersiz e-posta adresi: " + emailInput);
         } catch (MessagingException me) {
