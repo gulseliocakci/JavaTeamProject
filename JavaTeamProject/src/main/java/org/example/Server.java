@@ -24,7 +24,7 @@ public class Server extends GUI{
 
 
         String[] serverIPs = {"192.168.1.139", "192.168.1.129", "192.168.1.140"}; // Manuel olarak girilmiş IP adresleri
-        int[] ports = {7755, 7756, 7757}; // Sunucu port numaraları
+        int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
 
 
             File selectedFile = new File(dosyaYolu1);
