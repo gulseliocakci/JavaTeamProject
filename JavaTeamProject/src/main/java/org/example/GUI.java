@@ -14,10 +14,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
-public class GUI {
+public class GUI{
     private static File fileToChoose = null;
     private static String lastSearchedWord = "";
-    private static int serversayisi=0;
+
+    private static int numberOfServers;
+
+    public static int getNumberOfServers() {
+        return numberOfServers;
+    }
 
     public static void GUIPlay() {
         // Swing GUI
@@ -159,21 +164,22 @@ public class GUI {
         radioButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                serversayisi=1;
+                numberOfServers=1;
+
 
             }
         });
         radioButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                serversayisi=2;
+                numberOfServers=2;
 
             }
         });
         radioButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                serversayisi=3;
+                numberOfServers=3;
 
             }
         });

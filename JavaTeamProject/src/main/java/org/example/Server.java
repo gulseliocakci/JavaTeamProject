@@ -4,8 +4,11 @@ import javax.swing.*;
 import java.io.*;
 import java.net.*;
 
-public class Server {
-    private static void sendFileToServers(int numberOfServers) {
+public class Server extends GUI{
+
+    private static void sendFileToServers() {
+        int numberOfServers = getNumberOfServers();
+
         String[] serverIPs = {"192.168.1.94", "192.168.1.36", "192.168.1.40"}; // Manuel olarak girilmiş IP adresleri
         int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
 
