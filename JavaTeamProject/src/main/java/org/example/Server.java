@@ -26,16 +26,14 @@ public class Server extends GUI{
         String[] serverIPs = {"192.168.1.94", "192.168.1.36", "192.168.1.40"}; // Manuel olarak girilmiş IP adresleri
         int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
 
-        JFileChooser fileChooser = new JFileChooser();
-        int returnValue = fileChooser.showOpenDialog(null);
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+
+            File selectedFile = new File(dosyaYolu1);
 
 
 
             try {
                 // Dosyanın içeriğini bir StringBuilder'a yükle
-                BufferedReader reader = new BufferedReader(new FileReader((dosyaYolu1)));
+                BufferedReader reader = new BufferedReader(new FileReader((selectedFile)));
                 StringBuilder content = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -63,7 +61,7 @@ public class Server extends GUI{
             } catch (IOException e) {
                 System.err.println("I/O hatası: " + e.getMessage());
             }
-        }
+
     }
 
     private static int[] findSplitIndices(String content, int numberOfParts) {

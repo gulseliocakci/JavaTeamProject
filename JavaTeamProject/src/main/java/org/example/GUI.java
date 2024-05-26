@@ -87,7 +87,7 @@ public class GUI{
         gbc.gridy = 0;
         JButton btnFile = new JButton();
         try {
-            ImageIcon selectButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/kaynaklar/dosya.png")));
+            ImageIcon selectButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/dosya.png")));
             Image selectButtonImage = selectButtonIcon.getImage();
             Image scaledSelectButtonImage = selectButtonImage.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
             btnFile.setIcon(new ImageIcon(scaledSelectButtonImage));
@@ -102,7 +102,7 @@ public class GUI{
         gbc.gridy = 0;
         JButton btnSearch = new JButton();
         try {
-            ImageIcon searchButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/kaynaklar/aramaicon.png"))); // Resmi dosya yolundan yükle
+            ImageIcon searchButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/aramaicon.png"))); // Resmi dosya yolundan yükle
             Image searchButtonImage = searchButtonIcon.getImage();
             Image scaledSearchButtonImage = searchButtonImage.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
             btnSearch.setIcon(new ImageIcon(scaledSearchButtonImage));
@@ -307,7 +307,7 @@ public class GUI{
                         gbc.gridy = 0;
                         JButton btnSave = new JButton();
                         try {
-                            ImageIcon saveButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/kaynaklar/kaydet (yeni).png")));
+                            ImageIcon saveButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/kaydet.png")));
                             Image saveButtonImage = saveButtonIcon.getImage();
                             Image scaledSaveButtonImage = saveButtonImage.getScaledInstance(113, 30, Image.SCALE_SMOOTH);
                             btnSave.setIcon(new ImageIcon(scaledSaveButtonImage));
