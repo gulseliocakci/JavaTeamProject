@@ -7,10 +7,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -20,6 +17,7 @@ import java.util.Objects;
 public class GUI {
     private static File fileToChoose = null;
     private static String lastSearchedWord = "";
+    private static int serversayisi=0;
 
     public static void GUIPlay() {
         // Swing GUI
@@ -69,6 +67,7 @@ public class GUI {
                 }
             }
         });
+
         // Kelime ve karakter sayısı etiketleri
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -85,7 +84,7 @@ public class GUI {
         gbc.gridy = 0;
         JButton btnFile = new JButton();
         try {
-            ImageIcon selectButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/dosya.png")));
+            ImageIcon selectButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/kaynaklar/dosya.png")));
             Image selectButtonImage = selectButtonIcon.getImage();
             Image scaledSelectButtonImage = selectButtonImage.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
             btnFile.setIcon(new ImageIcon(scaledSelectButtonImage));
@@ -100,7 +99,7 @@ public class GUI {
         gbc.gridy = 0;
         JButton btnSearch = new JButton();
         try {
-            ImageIcon searchButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/aramaicon.png"))); // Resmi dosya yolundan yükle
+            ImageIcon searchButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/kaynaklar/aramaicon.png"))); // Resmi dosya yolundan yükle
             Image searchButtonImage = searchButtonIcon.getImage();
             Image scaledSearchButtonImage = searchButtonImage.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
             btnSearch.setIcon(new ImageIcon(scaledSearchButtonImage));
@@ -109,6 +108,16 @@ public class GUI {
         }
         btnSearch.setPreferredSize(new Dimension(70, 70));
         topPanel.add(btnSearch, gbc);
+
+        txtKelime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Enter tuşuna basıldığında btnSearch çalışsın
+                    btnSearch.doClick();
+                }
+            }
+        });
 
         frame1.add(topPanel, BorderLayout.NORTH);
 
@@ -147,12 +156,36 @@ public class GUI {
         gbc.gridy = 0;
         topPanel.add(radioPanel, gbc);
 
+        radioButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                serversayisi=1;
+
+            }
+        });
+        radioButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                serversayisi=2;
+
+            }
+        });
+        radioButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                serversayisi=3;
+
+            }
+        });
+
+
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (comboBox.getSelectedItem().equals("Bilgisayarlara gönder.")) {
                     radioPanel.setVisible(true);
                     lblbilgisayar.setVisible(true);
+
                 } else {
                     radioPanel.setVisible(false);
                     lblbilgisayar.setVisible(false);
@@ -213,6 +246,7 @@ public class GUI {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         dialog.dispose(); // Diyaloğu kapat
+                        textArea.setEditable(false);
                         int returnVal = fileChooser.showOpenDialog(null);
                         if (returnVal == JFileChooser.APPROVE_OPTION) { // Kullanıcı dosya seçtiyse devam et
                             File file = fileChooser.getSelectedFile();
@@ -269,7 +303,7 @@ public class GUI {
                         gbc.gridy = 0;
                         JButton btnSave = new JButton();
                         try {
-                            ImageIcon saveButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/kaydet.png")));
+                            ImageIcon saveButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/kaynaklar/kaydet (yeni).png")));
                             Image saveButtonImage = saveButtonIcon.getImage();
                             Image scaledSaveButtonImage = saveButtonImage.getScaledInstance(113, 30, Image.SCALE_SMOOTH);
                             btnSave.setIcon(new ImageIcon(scaledSaveButtonImage));
@@ -330,21 +364,26 @@ public class GUI {
                 lastSearchedWord = kelime;
                 highlightWords(textArea, lastSearchedWord);
                 highlightWords(textArea, kelime);
-                Cekirdek cekirdek = new Cekirdek(fileToChoose, kelime);
-                cekirdek.cekirdeklereBolme();
-                int total = cekirdek.getToplamKelimeSayisi();
+                int total = 0;
+                if (Objects.equals(comboBox.getSelectedItem(), "Çekirdeklere gönder.")) {
+
+                    Cekirdek cekirdek = new Cekirdek(fileToChoose, kelime);
+                    cekirdek.cekirdeklereBolme();
+                    total = cekirdek.getToplamKelimeSayisi();
+                }
+
 
                 UIManager.put("OptionPane.yesButtonText", "Evet");
                 UIManager.put("OptionPane.noButtonText", "Hayır");
 
                 Color buttonColor = new Color(246, 239, 239);
                 UIManager.put("Button.background", buttonColor);
-                UIManager.put("Button.foreground", Color.BLACK);
+                UIManager.put("Button.foreground", Color.BLACK); // Yazı rengini istediğiniz gibi ayarlayabilirsiniz
 
                 String[] options = {"Evet", "Hayır"};
                 int result = JOptionPane.showOptionDialog(
                         frame1,
-                        "'"+kelime +"'"+ " kelimesi metinde " + total + " kere geçmektedir. \nSonucun E-Mail adresinize gönderilmesini ister misiniz?",
+                        "'" + kelime + "'" + " kelimesi metinde " + total + " kere geçmektedir. \nSonucun E-Mail adresinize gönderilmesini ister misiniz?",
                         "Swing Tester",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
@@ -356,7 +395,6 @@ public class GUI {
                 if (result == JOptionPane.YES_OPTION) {
                     org.example.demo4.EmailGonder email = new org.example.demo4.EmailGonder(kelime, total);
                 }
-
 
 
             }
@@ -398,4 +436,9 @@ public class GUI {
             e.printStackTrace();
         }
     }
+
+
+
+
+
 }
