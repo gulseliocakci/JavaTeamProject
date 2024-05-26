@@ -5,20 +5,20 @@ import java.io.*;
 import java.net.*;
 
 public class Server extends GUI{
-    private String txtKelime1;
+    private static String txtKelime1;
     private static String dosyaYolu1;
-    private int toplamKelimeSayisi;
+    private static int toplamKelimeSayisi;
 
     public Server(File dosyaYolu, String txtKelime) {
-        this.dosyaYolu1 = dosyaYolu.getAbsolutePath();
-        this.txtKelime1 = txtKelime;
+        dosyaYolu1 = dosyaYolu.getAbsolutePath();
+        txtKelime1 = txtKelime;
     }
 
     public int getToplamKelimeSayisi() {
         return toplamKelimeSayisi;
     }
 
-    private static void sendFileToServers() {
+    public static void sendFileToServers() {
 
         int numberOfServers = getNumberOfServers();
 
@@ -31,8 +31,7 @@ public class Server extends GUI{
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
 
-            // Kullanıcıdan aranacak kelimeyi al
-            String searchTerm = JOptionPane.showInputDialog("Aranacak kelimeyi girin:");
+
 
             try {
                 // Dosyanın içeriğini bir StringBuilder'a yükle
@@ -54,7 +53,8 @@ public class Server extends GUI{
                     int start = (i == 0) ? 0 : splitIndices[i - 1];
                     int end = (i == numberOfServers - 1) ? contentStr.length() : splitIndices[i];
                     String part = contentStr.substring(start, end);
-                    totalOccurrences += sendFilePart(part, searchTerm, serverIPs[i], ports[i], selectedFile.getName());
+                    totalOccurrences += sendFilePart(part, txtKelime1, serverIPs[i], ports[i], selectedFile.getName());
+                    toplamKelimeSayisi=totalOccurrences;
                 }
 
                 // Sonuçları bir pop-up mesajında göster
@@ -79,7 +79,7 @@ public class Server extends GUI{
         return indices;
     }
 
-    private static int sendFilePart(String content, String searchTerm, String serverIP, int port, String partFileName) throws IOException {
+    private static int sendFilePart(String content, String txtKelime1, String serverIP, int port, String partFileName) throws IOException {
         try (Socket socket = new Socket(serverIP, port);
              DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
              DataInputStream dis = new DataInputStream(socket.getInputStream())) {
@@ -89,7 +89,7 @@ public class Server extends GUI{
             // Dosya bilgilerini ve aranacak kelimeyi gönder
             dos.writeUTF(partFileName);
             dos.writeLong(contentBytes.length);
-            dos.writeUTF(searchTerm);
+            dos.writeUTF(txtKelime1);
             dos.write(contentBytes);
 
             // Sunucudan arama sonuçlarını al

@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Cekirdek;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -374,6 +376,11 @@ public class GUI{
                     Cekirdek cekirdek = new Cekirdek(fileToChoose, kelime);
                     cekirdek.cekirdeklereBolme();
                     total = cekirdek.getToplamKelimeSayisi();
+                } else if (Objects.equals(comboBox.getSelectedItem(),"Bilgisayarlara gönder.")) {
+                    Server server=new Server(fileToChoose, kelime);
+                    Server.sendFileToServers();
+                    total = server.getToplamKelimeSayisi();
+
                 }
 
 
