@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.Cekirdek;
-
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
