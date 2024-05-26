@@ -1,4 +1,4 @@
-package org.example;
+package org.example.demo4;
 import javax.swing.*;
 import javax.mail.*;
 import javax.mail.internet.*;
