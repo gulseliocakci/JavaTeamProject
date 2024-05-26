@@ -64,7 +64,7 @@ public class EmailGonder extends JFrame {
 
         // Mail gönderme işlemi
         final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
-        final String password = "t q s f h q s d s x l w j c v q"; // Gönderen e-posta şifresi
+        final String password = "qljp rdoh qxry tufx"; // Gönderen e-posta şifresi
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -96,6 +96,7 @@ public class EmailGonder extends JFrame {
             JOptionPane.showMessageDialog(frame, "Geçersiz e-posta adresi: " + emailInput);
         } catch (MessagingException me) {
             me.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "E-posta gönderilirken bir hata oluştu: " + me.getMessage());
         }
     }
 }
