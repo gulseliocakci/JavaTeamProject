@@ -23,7 +23,7 @@ public class GUI{
     }
 
     public static void GUIPlay() {
-        // Swing GUI
+         // Swing GUI
 
         JFrame frame1 = new JFrame("Paralel Dosya");
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
