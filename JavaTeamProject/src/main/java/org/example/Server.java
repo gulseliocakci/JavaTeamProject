@@ -51,10 +51,11 @@ public class Server extends GUI{
                     int start = (i == 0) ? 0 : splitIndices[i - 1];
                     int end = (i == numberOfServers - 1) ? contentStr.length() : splitIndices[i];
                     String part = contentStr.substring(start, end);
+                    System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
                     totalOccurrences += sendFilePart(part, txtKelime1, serverIPs[i], ports[i], selectedFile.getName());
                     toplamKelimeSayisi=totalOccurrences;
                 }
-
+                System.out.println("Toplam kelime sayısı: " + toplamKelimeSayisi);
 
 
             } catch (IOException e) {
@@ -93,6 +94,9 @@ public class Server extends GUI{
             int occurrenceCount = dis.readInt();
             System.out.println("Dosya parçası gönderildi: " + partFileName + ", Kelime sayısı: " + occurrenceCount);
             return occurrenceCount;
+        } catch (IOException e) {
+            System.err.println("Sunucuya bağlanılamadı: IP = " + serverIP + ", Port = " + port + ", Hata: " + e.getMessage());
+            return 0;
         }
     }
 }
