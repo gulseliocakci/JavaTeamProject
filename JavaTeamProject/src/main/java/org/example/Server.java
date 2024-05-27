@@ -19,7 +19,7 @@ public class Server extends GUI{
 
     public static void dosyayiGonder() {
 
-        int numberOfServers = getSunucuSayisi();
+        int serverSayisi = getSunucuSayisi();
 
 
         String[] serverIPs = {"172.20.10.11","172.20.10.9","172.20.10.8"}; // Manuel olarak girilmiş IP adresleri
@@ -42,16 +42,16 @@ public class Server extends GUI{
 
                 // Dosya içeriğini belirtilen sayıda parçaya böl
                 String contentStr = content.toString();
-                int[] splitIndices = findSplitIndices(contentStr, numberOfServers); //bölünmüş indeksler
+                int[] parcalanmisIndeksler = parcalanmisIndeksleriBulma(contentStr, serverSayisi); //bölünmüş indeksler
 
                 // Parçaları ayrı ayrı sunuculara gönder ve sonuçları al
                 int kelimeninGecmeSayisi = 0;
-                for (int i = 0; i < numberOfServers; i++) {
-                    int start = (i == 0) ? 0 : splitIndices[i - 1];
-                    int end = (i == numberOfServers - 1) ? contentStr.length() : splitIndices[i];
+                for (int i = 0; i < serverSayisi; i++) {
+                    int start = (i == 0) ? 0 : parcalanmisIndeksler[i - 1];
+                    int end = (i == serverSayisi - 1) ? contentStr.length() : parcalanmisIndeksler[i];
                     String part = contentStr.substring(start, end);
                     System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
-                    kelimeninGecmeSayisi += sendFilePart(part, txtKelime1, serverIPs[i], ports[i], secilenDosya.getName());
+                    kelimeninGecmeSayisi += dosyaParcasiGonder(part, txtKelime1, serverIPs[i], ports[i], secilenDosya.getName());
                     toplamKelimeSayisi=kelimeninGecmeSayisi;
                 }
                 System.out.println("Toplam kelime sayısı: " + toplamKelimeSayisi);
@@ -63,20 +63,20 @@ public class Server extends GUI{
 
     }
 
-    private static int[] findSplitIndices(String content, int parcaSayisi) {
-        int[] indices = new int[parcaSayisi - 1];
+    private static int[] parcalanmisIndeksleriBulma(String content, int parcaSayisi) {
+        int[] indeksler = new int[parcaSayisi - 1];
         int parcaBoyutu = content.length() / parcaSayisi;
         for (int i = 1; i < parcaSayisi; i++) {
             int mid = parcaBoyutu * i;
             while (mid < content.length() && content.charAt(mid) != ' ' && content.charAt(mid) != '\n') {
                 mid++;
             }
-            indices[i - 1] = mid;
+            indeksler[i - 1] = mid;
         }
-        return indices;
+        return indeksler;
     }
 
-    private static int sendFilePart(String content, String txtKelime1, String serverIP, int port, String partFileName) throws IOException {
+    private static int dosyaParcasiGonder(String content, String txtKelime1, String serverIP, int port, String partFileName) throws IOException {
         try (Socket socket = new Socket(serverIP, port);
              DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
              DataInputStream dis = new DataInputStream(socket.getInputStream())) {
