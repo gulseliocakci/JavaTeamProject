@@ -148,11 +148,20 @@ public class GUI{
         gbc.gridy = 0;
         JLabel lblbilgisayar = new JLabel("Bilgisayar sayısı:");
         lblbilgisayar.setVisible(false);
+
+        Font labelFont = lblbilgisayar.getFont().deriveFont(lblbilgisayar.getFont().getSize() + 5f);
+        lblbilgisayar.setFont(labelFont);
+
         topPanel.add(lblbilgisayar, gbc);
 
         JRadioButton radioButton1 = new JRadioButton("1");
         JRadioButton radioButton2 = new JRadioButton("2");
         JRadioButton radioButton3 = new JRadioButton("3");
+
+        Font radioButtonFont = radioButton1.getFont().deriveFont(radioButton1.getFont().getSize() + 5f);
+        radioButton1.setFont(radioButtonFont);
+        radioButton2.setFont(radioButtonFont);
+        radioButton3.setFont(radioButtonFont);
 
         ButtonGroup radioGroup = new ButtonGroup();
         radioGroup.add(radioButton1);
