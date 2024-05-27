@@ -20,9 +20,6 @@ public class Cekirdek implements Serializable {
     private String dosyaYolu;
     private int toplamKelimeSayisi;
 
-    // Public no-argument constructor
-    public Cekirdek() {
-    }
 
     public Cekirdek(File dosyaYolu, String txtKelime) {
         this.dosyaYolu = dosyaYolu.getAbsolutePath();
@@ -58,21 +55,21 @@ public class Cekirdek implements Serializable {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dosyaYolu), "UTF-8"))) {
             char[] buffer = new char[parcaBoyutu];
-            int bytesRead;
-            int chunkNumber = 1;
+            int byteOkuma;
+            int parcaNumarasi = 1;
 
             int cekirdekSayisi = Runtime.getRuntime().availableProcessors();
 
             ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
             List<Future<Integer>> futures = new ArrayList<>();
 
-            while ((bytesRead = reader.read(buffer)) != -1) {
-                System.out.println("Parça " + chunkNumber + " gönderiliyor...");
-                String chunkData = new String(buffer, 0, bytesRead);
+            while ((byteOkuma = reader.read(buffer)) != -1) {
+                System.out.println("Parça " + parcaNumarasi + " gönderiliyor...");
+                String chunkData = new String(buffer, 0, byteOkuma);
 
                 Future<Integer> future = executorService.submit(new Worker(chunkData, txtKelime));
                 futures.add(future);
-                chunkNumber++;
+                parcaNumarasi++;
             }
 
             toplamKelimeSayisi = 0;
@@ -105,12 +102,12 @@ public class Cekirdek implements Serializable {
 
         @Override
         public Integer call() {
-            int count = countOccurrences(data, word);
+            int count = sayimIslemi(data, word);
             System.out.println("Gelen parça işlendi, bulunan kelime sayısı: " + count);
             return count;
         }
 
-        private int countOccurrences(String data, String word) {
+        private int sayimIslemi(String data, String word) {
             int count = 0;
             int idx = 0;
             while ((idx = data.toLowerCase().indexOf(word.toLowerCase(), idx)) != -1) {

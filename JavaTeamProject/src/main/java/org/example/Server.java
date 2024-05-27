@@ -1,6 +1,5 @@
 package org.example;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.*;
 
@@ -18,22 +17,22 @@ public class Server extends GUI{
         return toplamKelimeSayisi;
     }
 
-    public static void sendFileToServers() {
+    public static void dosyayiGonder() {
 
-        int numberOfServers = getNumberOfServers();
+        int numberOfServers = getSunucuSayisi();
 
 
         String[] serverIPs = {"172.20.10.8","172.20.10.9","172.20.10.11"}; // Manuel olarak girilmiş IP adresleri
         int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
 
 
-            File selectedFile = new File(dosyaYolu1);
+            File secilenDosya = new File(dosyaYolu1);
 
 
 
             try {
                 // Dosyanın içeriğini bir StringBuilder'a yükle
-                BufferedReader reader = new BufferedReader(new FileReader((selectedFile)));
+                BufferedReader reader = new BufferedReader(new FileReader((secilenDosya)));
                 StringBuilder content = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -43,17 +42,17 @@ public class Server extends GUI{
 
                 // Dosya içeriğini belirtilen sayıda parçaya böl
                 String contentStr = content.toString();
-                int[] splitIndices = findSplitIndices(contentStr, numberOfServers);
+                int[] splitIndices = findSplitIndices(contentStr, numberOfServers); //bölünmüş indeksler
 
                 // Parçaları ayrı ayrı sunuculara gönder ve sonuçları al
-                int totalOccurrences = 0;
+                int kelimeninGecmeSayisi = 0;
                 for (int i = 0; i < numberOfServers; i++) {
                     int start = (i == 0) ? 0 : splitIndices[i - 1];
                     int end = (i == numberOfServers - 1) ? contentStr.length() : splitIndices[i];
                     String part = contentStr.substring(start, end);
                     System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
-                    totalOccurrences += sendFilePart(part, txtKelime1, serverIPs[i], ports[i], selectedFile.getName());
-                    toplamKelimeSayisi=totalOccurrences;
+                    kelimeninGecmeSayisi += sendFilePart(part, txtKelime1, serverIPs[i], ports[i], secilenDosya.getName());
+                    toplamKelimeSayisi=kelimeninGecmeSayisi;
                 }
                 System.out.println("Toplam kelime sayısı: " + toplamKelimeSayisi);
 
@@ -64,11 +63,11 @@ public class Server extends GUI{
 
     }
 
-    private static int[] findSplitIndices(String content, int numberOfParts) {
-        int[] indices = new int[numberOfParts - 1];
-        int partSize = content.length() / numberOfParts;
-        for (int i = 1; i < numberOfParts; i++) {
-            int mid = partSize * i;
+    private static int[] findSplitIndices(String content, int parcaSayisi) {
+        int[] indices = new int[parcaSayisi - 1];
+        int parcaBoyutu = content.length() / parcaSayisi;
+        for (int i = 1; i < parcaSayisi; i++) {
+            int mid = parcaBoyutu * i;
             while (mid < content.length() && content.charAt(mid) != ' ' && content.charAt(mid) != '\n') {
                 mid++;
             }
@@ -91,9 +90,9 @@ public class Server extends GUI{
             dos.write(contentBytes);
 
             // Sunucudan arama sonuçlarını al
-            int occurrenceCount = dis.readInt();
-            System.out.println("Dosya parçası gönderildi: " + partFileName + ", Kelime sayısı: " + occurrenceCount);
-            return occurrenceCount;
+            int mevcutSayi = dis.readInt();
+            System.out.println("Dosya parçası gönderildi: " + partFileName + ", Kelime sayısı: " + mevcutSayi);
+            return mevcutSayi;
         } catch (IOException e) {
             System.err.println("Sunucuya bağlanılamadı: IP = " + serverIP + ", Port = " + port + ", Hata: " + e.getMessage());
             return 0;

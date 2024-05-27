@@ -11,36 +11,36 @@ public class EmailGonder extends JFrame {
 
     private JTextField txtEmail;
     private JTextField txtKelime;
-    private int total;
-    private JFrame frame;
+    private int toplam;
+    private JFrame frameEmail;
 
-    public EmailGonder(String kelime, int totalCount) {
+    public EmailGonder(String kelime, int toplamSayi) {
         this.txtKelime = new JTextField(kelime);
-        this.total = totalCount;
+        this.toplam = toplamSayi;
 
-        // Initialize the frame
-        frame = new JFrame("Email Gönderme");
-        frame.setSize(400, 200);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLayout(new GridBagLayout());
+        //ekrana email pop-up ı çıkar
+        frameEmail = new JFrame("Email Gönderme");
+        frameEmail.setSize(400, 200);
+        frameEmail.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frameEmail.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel lblEmail = new JLabel("Email adresinizi giriniz:");
         gbc.gridx = 0;
         gbc.gridy = 0;
-        frame.add(lblEmail, gbc);
+        frameEmail.add(lblEmail, gbc);
 
         txtEmail = new JTextField();
         gbc.gridx = 1;
         gbc.gridy = 0;
         txtEmail.setPreferredSize(new Dimension(200, 18));
-        frame.add(txtEmail, gbc);
+        frameEmail.add(txtEmail, gbc);
 
         JButton btnGonder = new JButton("Gönder");
         gbc.gridx = 1;
         gbc.gridy = 1;
-        frame.add(btnGonder, gbc);
+        frameEmail.add(btnGonder, gbc);
 
         btnGonder.addActionListener(new ActionListener() {
             @Override
@@ -49,16 +49,16 @@ public class EmailGonder extends JFrame {
             }
         });
 
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frameEmail.setLocationRelativeTo(null);
+        frameEmail.setVisible(true);
     }
 
     public void email() {
-        String emailInput = txtEmail.getText().trim();
+        String emailGiris = txtEmail.getText().trim();
         String kelime = txtKelime.getText();
 
-        if (emailInput.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Lütfen geçerli bir e-posta adresi giriniz.");
+        if (emailGiris.isEmpty()) {
+            JOptionPane.showMessageDialog(frameEmail, "Lütfen geçerli bir e-posta adresi giriniz.");
             return;
         }
 
@@ -79,20 +79,20 @@ public class EmailGonder extends JFrame {
         });
 
         try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(userName)); // E-posta göndericisini belirler
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailInput));
-            message.setSubject("Dosyada kelime bulma");
-            message.setText("Merhabalar,\n\nİlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n\n- Aranan Kelime: " + kelime + "\n- Toplam Bulunan Sayı: " + total);
+            MimeMessage mesaj = new MimeMessage(session);
+            mesaj.setFrom(new InternetAddress(userName)); // E-posta göndericisini belirler
+            mesaj.addRecipient(Message.RecipientType.TO, new InternetAddress(emailGiris));
+            mesaj.setSubject("Dosyada kelime bulma");
+            mesaj.setText("Merhabalar,\n\nİlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n\n- Aranan Kelime: " + kelime + "\n- Toplam Bulunan Sayı: " + toplam);
             System.out.println("Mail Gönderiliyor...");
-            Transport.send(message);
+            Transport.send(mesaj);
             System.out.println("Mail Başarıyla Gönderildi.");
-            JOptionPane.showMessageDialog(frame, "Mail başarıyla gönderildi.");
+            JOptionPane.showMessageDialog(frameEmail, "Mail başarıyla gönderildi.");
         } catch (AddressException ae) {
-            JOptionPane.showMessageDialog(frame, "Geçersiz e-posta adresi: " + emailInput);
+            JOptionPane.showMessageDialog(frameEmail, "Geçersiz e-posta adresi: " + emailGiris);
         } catch (MessagingException me) {
             me.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "E-posta gönderilirken bir hata oluştu: " + me.getMessage());
+            JOptionPane.showMessageDialog(frameEmail, "E-posta gönderilirken bir hata oluştu: " + me.getMessage());
         }
     }
 }
