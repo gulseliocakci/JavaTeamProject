@@ -374,6 +374,7 @@ public class GUI{
                     Cekirdek cekirdek = new Cekirdek(fileToChoose, kelime);
                     cekirdek.cekirdeklereBolme();
                     total = cekirdek.getToplamKelimeSayisi();
+
                 } else if (Objects.equals(comboBox.getSelectedItem(),"Bilgisayarlara gönder.")) {
                     Server server=new Server(fileToChoose, kelime);
                     Server.sendFileToServers();
@@ -445,9 +446,4 @@ public class GUI{
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }

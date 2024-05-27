@@ -88,14 +88,14 @@ public class Cekirdek {
         }
 
         private int countOccurrences(String data, String word) {
-            String[] words = data.split("[\\s\\p{Punct}&&[^'-]]+"); // boşluk ve noktalama işaretlerine göre ayırır
             int count = 0;
-            for (String w : words) { // tüm kelimeler üzerinde döngü başlatır.
-                if (w.equalsIgnoreCase(word)) {
-                    count++;
-                }
+            int idx = 0;
+            while ((idx = data.toLowerCase().indexOf(word.toLowerCase(), idx)) != -1) {
+                count++;
+                idx += word.length();
             }
             return count;
         }
+
     }
 }
