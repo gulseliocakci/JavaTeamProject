@@ -394,7 +394,7 @@ public class GUI{
                 int result = JOptionPane.showOptionDialog(
                         frame1,
                         "'" + kelime + "'" + " kelimesi metinde " + total + " kere geçmektedir. \nSonucun E-Mail adresinize gönderilmesini ister misiniz?",
-                        "Swing Tester",
+                        "",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null,
