@@ -23,7 +23,7 @@ public class Server extends GUI{
         int numberOfServers = getNumberOfServers();
 
 
-        String[] serverIPs = {"10.50.30.145","10.50.29.144","10.50.22.142"}; // Manuel olarak girilmiş IP adresleri
+        String[] serverIPs = {"172.20.10.8","172.20.10.9","172.20.10.11"}; // Manuel olarak girilmiş IP adresleri
         int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
 
 
