@@ -35,21 +35,25 @@ public class GUI{
         topPanel.setBackground(new Color(246, 239, 239));
         topPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(7, 7, 7, 7);
 
         // Arama kelimesi alanı
         gbc.gridx = 1;
         gbc.gridy = 0;
-        topPanel.add(new JLabel("Aranacak Kelime:"), gbc);
+        JLabel lblaranacakKelime = new JLabel("Aranacak Kelime:");
+        lblaranacakKelime.setFont(new Font(lblaranacakKelime.getFont().getName(), Font.PLAIN, lblaranacakKelime.getFont().getSize() + 5));
+        topPanel.add(lblaranacakKelime ,gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
         JTextArea txtKelime = new JTextArea(1, 20);
         topPanel.add(txtKelime, gbc);
         String placeholderText = "Buraya yazınız...";
+
         txtKelime.setText(placeholderText);
         txtKelime.setForeground(Color.GRAY);
-        txtKelime.setFont(txtKelime.getFont().deriveFont(Font.ITALIC));
+        Font placeholderFont = txtKelime.getFont().deriveFont(Font.ITALIC, txtKelime.getFont().getSize() + 5);
+        txtKelime.setFont(placeholderFont);
 
         txtKelime.addFocusListener(new FocusListener() {
             @Override
@@ -75,11 +79,13 @@ public class GUI{
         gbc.gridx = 1;
         gbc.gridy = 2;
         JLabel lblKelime = new JLabel("Kelime sayısı:");
+        lblKelime.setFont(new Font(lblKelime.getFont().getName(), Font.PLAIN, lblKelime.getFont().getSize() + 5));
         topPanel.add(lblKelime, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 2;
         JLabel lblKarakter = new JLabel("Karakter sayısı:");
+        lblKarakter.setFont(new Font(lblKarakter.getFont().getName(), Font.PLAIN, lblKarakter.getFont().getSize() + 5));
         topPanel.add(lblKarakter, gbc);
 
         // Dosya seçme butonu
@@ -129,6 +135,8 @@ public class GUI{
         String[] options = {"-Dosyayı gönderme yöntemi seçiniz.-","Bilgisayarlara gönder.", "Çekirdeklere gönder."};
         JComboBox<String> comboBox = new JComboBox<>(options);
         comboBox.setBackground(new Color(246, 239, 239));
+        Font comboBoxFont = comboBox.getFont().deriveFont(comboBox.getFont().getSize() + 3f);
+        comboBox.setFont(comboBoxFont);
         topPanel.add(comboBox, gbc);
 
         // JRadioButton'lar için panel
@@ -250,6 +258,9 @@ public class GUI{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         dialog.dispose(); // Diyaloğu kapat
+                        Font font = textArea.getFont(); // Mevcut font bilgisini al
+                        float fontSize = font.getSize() + 5; // Mevcut font boyutunu 5 birim artır
+                        textArea.setFont(font.deriveFont(fontSize));
                         textArea.setEditable(false);
                         int returnVal = fileChooser.showOpenDialog(null);
                         if (returnVal == JFileChooser.APPROVE_OPTION) { // Kullanıcı dosya seçtiyse devam et
