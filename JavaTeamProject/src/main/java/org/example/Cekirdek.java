@@ -8,11 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
 public class Cekirdek extends dosyaGonder implements Serializable {
-
-
-
 
     public Cekirdek(File dosyaYolu, String arananKelime) {
         super(dosyaYolu, arananKelime);
@@ -25,7 +21,6 @@ public class Cekirdek extends dosyaGonder implements Serializable {
     @Override
     public void dosyaBol() {
         cekirdeklereBolme();
-
     }
 
     public void setToplamKelimeSayisi(int toplamKelimeSayisi) {
@@ -33,7 +28,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
     }
 
     public void cekirdeklereBolme() {
-        int parcaBoyutu = 8192; // Parça boyutu (örneğin, 1 KB)
+        int parcaBoyutu = 32768; // Parça boyutu (örneğin, 32 KB)
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dosyaYolu), "UTF-8"))) {
             char[] buffer = new char[parcaBoyutu];
@@ -45,13 +40,30 @@ public class Cekirdek extends dosyaGonder implements Serializable {
             ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
             List<Future<Integer>> futures = new ArrayList<>();
 
+            String remainingData = "";
+
             while ((byteOkuma = reader.read(buffer)) != -1) {
                 System.out.println("Parça " + parcaNumarasi + " gönderiliyor...");
-                String chunkData = new String(buffer, 0, byteOkuma);
+                String chunkData = remainingData + new String(buffer, 0, byteOkuma);
 
-                Future<Integer> future = executorService.submit(new Worker(chunkData, arananKelime));
+                // Parçanın sonundaki son boşluk karakterini bul
+                int lastSpaceIdx = chunkData.lastIndexOf(' ');
+                if (lastSpaceIdx == -1) {
+                    lastSpaceIdx = chunkData.length(); // Boşluk yoksa tüm parça işlenir
+                }
+
+                String currentPart = chunkData.substring(0, lastSpaceIdx);
+                remainingData = chunkData.substring(lastSpaceIdx);
+
+                Future<Integer> future = executorService.submit(new Worker(currentPart, arananKelime));
                 futures.add(future);
                 parcaNumarasi++;
+            }
+
+            // Son kalan kısmı da işleme ekle
+            if (!remainingData.isEmpty()) {
+                Future<Integer> future = executorService.submit(new Worker(remainingData, arananKelime));
+                futures.add(future);
             }
 
             toplamKelimeSayisi = 0;
@@ -59,7 +71,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
                 try {
                     int count = future.get();
                     toplamKelimeSayisi += count;
-
+                    System.out.println("Görev tamamlandı, bulunan kelime sayısı: " + count);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
