@@ -43,7 +43,7 @@ public class Client {
                     }
 
                     String icerik = new String(baos.toByteArray());
-                    int gecmeSayisi = kelimeGecmeHesaplama(icerik, aramaTerimi);
+                    int gecmeSayisi = countOccurrences(icerik, aramaTerimi);
 
                     // Sonuçları istemciye gönder
                     dos.writeInt(gecmeSayisi);
