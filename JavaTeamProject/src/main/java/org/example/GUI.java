@@ -46,7 +46,7 @@ public class GUI {
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        JTextArea txtKelime = new JTextArea(1, 20);
+        JTextArea txtKelime = new JTextArea(1, 12);
         ustPanel.add(txtKelime, gbc);
         String placeholderText = "Buraya yazınız...";
 
@@ -329,12 +329,12 @@ public class GUI {
                         try {
                             ImageIcon kaydetButonuIkonu = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/kaydet.png")));
                             Image kaydetButonuResmi = kaydetButonuIkonu.getImage();
-                            Image kaydetButonuResimBoyutu = kaydetButonuResmi.getScaledInstance(113, 30, Image.SCALE_SMOOTH);
+                            Image kaydetButonuResimBoyutu = kaydetButonuResmi.getScaledInstance(110, 30, Image.SCALE_SMOOTH);
                             btnKaydet.setIcon(new ImageIcon(kaydetButonuResimBoyutu));
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
-                        btnKaydet.setPreferredSize(new Dimension(113, 30));
+                        btnKaydet.setPreferredSize(new Dimension(110, 30));
                         ustPanel.add(btnKaydet, gbc);
 
                         // topPanel'i yeniden çiz
@@ -406,10 +406,7 @@ public class GUI {
                     toplam=gonderici.getToplamKelimeSayisi();
                 }
 
-//                if (gonderici != null) {
-//                    gonderici.dosyaBol();
-//                    kelimeKarakterSayisiGuncelle(textArea.getText(), lblKelime, lblKarakter);
-//                }
+
 
 
 
