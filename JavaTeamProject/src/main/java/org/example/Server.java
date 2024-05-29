@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.io.*;
 
 public class Server extends dosyaGonder {
-    private static String[] serverIPs = {"192.168.43.237", "192.168.43.175", "192.168.43.121"}; // Sunucu IP adresleri
+    private static String[] serverIPs = {"192.168.43.237", "192.168.43.175", "192.168.43.77"}; // Sunucu IP adresleri
     private static int[] ports = {7755, 7755, 7756}; // Sunucu port numaraları
 
     public Server(File dosyaYolu, String txtKelime) {
