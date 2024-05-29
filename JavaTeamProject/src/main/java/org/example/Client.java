@@ -1,4 +1,4 @@
-package org.example;
+/*package org.example;
 
 import java.io.*;
 import java.net.*;
@@ -69,4 +69,4 @@ public class Client {
     return count;
 }
 
-}
+}*/
