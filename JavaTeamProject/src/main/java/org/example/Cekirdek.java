@@ -59,7 +59,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
                 try {
                     int count = future.get();
                     toplamKelimeSayisi += count;
-                    System.out.println("Görev tamamlandı, bulunan kelime sayısı: " + count);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
