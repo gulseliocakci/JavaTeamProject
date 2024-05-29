@@ -41,7 +41,7 @@ public class Server extends dosyaGonder {
             // Parçaları ayrı ayrı sunuculara gönder ve sonuçları al
             int kelimeninGecmeSayisi = 0;
             for (int i = 0; i < serverSayisi; i++) {
-                int start = (i == 0) ? 0 : splitIndices[i - 1];
+                int start = (i == 0) ? 0 : splitIndices[i - 1];  //Ternary Operator
                 int end = (i == serverSayisi - 1) ? metinStr.length() : splitIndices[i];
                 String part = metinStr.substring(start, end);
                 System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
