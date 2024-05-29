@@ -15,7 +15,6 @@ import java.util.Objects;
 public class GUI{
     private static File dosyaSecme = null;
     private static String sonArananKelime = "";
-
     private static int sunucuSayisi;
 
     public static int getSunucuSayisi() {
@@ -34,7 +33,7 @@ public class GUI{
         JPanel ustPanel = new JPanel();
         ustPanel.setBackground(new Color(246, 239, 239));
         ustPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints(); //
         gbc.insets = new Insets(7, 7, 7, 7);
 
         // Arama kelimesi alanı
