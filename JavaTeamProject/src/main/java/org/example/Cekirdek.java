@@ -1,49 +1,31 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.io.*;
 
 
-public class Cekirdek implements Serializable {
-
-    private String txtKelime;
-    private String dosyaYolu;
-    private int toplamKelimeSayisi;
+public class Cekirdek extends dosyaGonder implements Serializable {
 
 
-    public Cekirdek(File dosyaYolu, String txtKelime) {
-        this.dosyaYolu = dosyaYolu.getAbsolutePath();
-        this.txtKelime = txtKelime;
-    }
 
-    public String getTxtKelime() {
-        return txtKelime;
-    }
 
-    public void setTxtKelime(String txtKelime) {
-        this.txtKelime = txtKelime;
-    }
-
-    public String getDosyaYolu() {
-        return dosyaYolu;
-    }
-
-    public void setDosyaYolu(String dosyaYolu) {
-        this.dosyaYolu = dosyaYolu;
+    public Cekirdek(File dosyaYolu, String arananKelime) {
+        super(dosyaYolu, arananKelime);
     }
 
     public int getToplamKelimeSayisi() {
         return toplamKelimeSayisi;
+    }
+
+    @Override
+    public void dosyaBol() {
+        cekirdeklereBolme();
+
     }
 
     public void setToplamKelimeSayisi(int toplamKelimeSayisi) {
@@ -67,7 +49,7 @@ public class Cekirdek implements Serializable {
                 System.out.println("Parça " + parcaNumarasi + " gönderiliyor...");
                 String chunkData = new String(buffer, 0, byteOkuma);
 
-                Future<Integer> future = executorService.submit(new Worker(chunkData, txtKelime));
+                Future<Integer> future = executorService.submit(new Worker(chunkData, arananKelime));
                 futures.add(future);
                 parcaNumarasi++;
             }

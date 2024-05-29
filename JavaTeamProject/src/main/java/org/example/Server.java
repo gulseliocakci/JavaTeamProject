@@ -1,33 +1,33 @@
 package org.example;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 import java.io.*;
-import java.net.*;
 
-public class Server extends GUI {
-    private static String txtKelime1;
-    private static String dosyaYolu1;
-    private static int toplamKelimeSayisi;
+public class Server extends dosyaGonder {
+    private static String[] serverIPs = {"192.168.43.70", "192.168.43.237", "192.168.43.175"}; // Sunucu IP adresleri
+    private static int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
 
     public Server(File dosyaYolu, String txtKelime) {
-        dosyaYolu1 = dosyaYolu.getAbsolutePath();
-        txtKelime1 = txtKelime;
+        super(dosyaYolu, txtKelime);
     }
 
-    public int getToplamKelimeSayisi() {
-        return toplamKelimeSayisi;
+    @Override
+    public void dosyaBol() {
+        dosyayiIsle(); // Sunuculara dosya parçalarını gönderme işlemleri
     }
 
-    public static void dosyayiGonder() {
-        int numberOfServers = getSunucuSayisi();
+    @Override
+    public void dosyayiIsle() {
+        int numberOfServers = serverIPs.length;
 
-        String[] serverIPs = {"172.20.10.11", "172.20.10.10", "172.20.10.8"}; // Manuel olarak girilmiş IP adresleri
-        int[] ports = {7755, 7755, 7755}; // Sunucu port numaraları
-
-        File secilenDosya = new File(dosyaYolu1);
+        File secilenDosya = new File(String.valueOf(dosyaYolu));
 
         try {
             // Dosyanın içeriğini bir StringBuilder'a yükle
-            BufferedReader reader = new BufferedReader(new FileReader((secilenDosya)));
+            BufferedReader reader = new BufferedReader(new FileReader(secilenDosya));
             StringBuilder content = new StringBuilder();
             int ch;
             while ((ch = reader.read()) != -1) {
@@ -37,7 +37,7 @@ public class Server extends GUI {
 
             // Dosya içeriğini belirtilen sayıda parçaya böl
             String contentStr = content.toString();
-            int[] splitIndices = parcaIndeksleriniBulma(contentStr, numberOfServers); // bölünmüş indeksler
+            int[] splitIndices = parcaIndeksleriniBulma(contentStr, numberOfServers); // Bölünmüş indeksler
 
             // Parçaları ayrı ayrı sunuculara gönder ve sonuçları al
             int kelimeninGecmeSayisi = 0;
@@ -46,7 +46,7 @@ public class Server extends GUI {
                 int end = (i == numberOfServers - 1) ? contentStr.length() : splitIndices[i];
                 String part = contentStr.substring(start, end);
                 System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
-                kelimeninGecmeSayisi += dosyaParcasiniGonder(part, txtKelime1, serverIPs[i], ports[i], secilenDosya.getName());
+                kelimeninGecmeSayisi += dosyaParcasiniGonder(part, arananKelime, serverIPs[i], ports[i], secilenDosya.getName());
                 toplamKelimeSayisi = kelimeninGecmeSayisi;
             }
             System.out.println("Toplam kelime sayısı: " + toplamKelimeSayisi);
@@ -61,7 +61,7 @@ public class Server extends GUI {
         int parcaBoyutu = content.length() / parcaSayisi;
         for (int i = 1; i < parcaSayisi; i++) {
             int mid = parcaBoyutu * i;
-            while (mid < content.length() && content.charAt(mid) != ' ' && content.charAt(mid) != '\n') {
+            while (mid < content.length() && !Character.isWhitespace(content.charAt(mid)) && content.charAt(mid) != '\n')  {
                 mid++;
             }
             indeksler[i - 1] = mid;
@@ -69,7 +69,7 @@ public class Server extends GUI {
         return indeksler;
     }
 
-    private static int dosyaParcasiniGonder(String content, String txtKelime1, String serverIP, int port, String partFileName) throws IOException {
+    private static int dosyaParcasiniGonder(String content, String arananKelime, String serverIP, int port, String partFileName) throws IOException {
         try (Socket socket = new Socket(serverIP, port);
              DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
              DataInputStream dis = new DataInputStream(socket.getInputStream())) {
@@ -79,7 +79,7 @@ public class Server extends GUI {
             // Dosya bilgilerini ve aranacak kelimeyi gönder
             dos.writeUTF(partFileName);
             dos.writeLong(contentBytes.length);
-            dos.writeUTF(txtKelime1);
+            dos.writeUTF(arananKelime);
             dos.write(contentBytes);
 
             // Sunucudan arama sonuçlarını al

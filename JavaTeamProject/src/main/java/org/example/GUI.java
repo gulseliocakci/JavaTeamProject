@@ -11,10 +11,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
+import org.example.Cekirdek;
+import org.example.Server;
+import org.example.dosyaGonder;
 
-public class GUI{
+
+public class GUI {
     private static File dosyaSecme = null;
     private static String sonArananKelime = "";
+
     private static int sunucuSayisi;
 
     public static int getSunucuSayisi() {
@@ -22,7 +27,7 @@ public class GUI{
     }
 
     public static void GUIPlay() {
-         // Swing GUI
+        // Swing GUI
 
         JFrame frame1 = new JFrame("Paralel Dosya"); //açılan ilk ekran
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +38,7 @@ public class GUI{
         JPanel ustPanel = new JPanel();
         ustPanel.setBackground(new Color(246, 239, 239));
         ustPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints(); //
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(7, 7, 7, 7);
 
         // Arama kelimesi alanı
@@ -346,6 +351,7 @@ public class GUI{
                             public void actionPerformed(ActionEvent e) {
                                 fileChooser.setDialogTitle("Kaydet");
                                 String text = textArea.getText();
+
                                 String[] kelimeler = text.split("\\s+");
                                 lblKelime.setText("Kelime sayısı: " + kelimeler.length);
                                 lblKarakter.setText("Karakter sayısı: " + (text.length() - 1));
@@ -353,9 +359,13 @@ public class GUI{
                                 int kullaniciSecimi = fileChooser.showSaveDialog(frame1);
                                 if (kullaniciSecimi == JFileChooser.APPROVE_OPTION) {
                                     File kaydedilecekDosya = fileChooser.getSelectedFile();
+                                    if (!kaydedilecekDosya.getName().endsWith(".txt")) {
+                                        kaydedilecekDosya = new File(kaydedilecekDosya.getAbsolutePath() + ".txt");
+                                    }
                                     dosyaSecme = kaydedilecekDosya;
+
                                     try (FileWriter fileWriter = new FileWriter(kaydedilecekDosya)) {
-                                        fileWriter.write(textArea.getText());
+                                        fileWriter.write(text);
                                         JOptionPane.showMessageDialog(frame1, "Dosya başarıyla kaydedildi: " + kaydedilecekDosya.getAbsolutePath() + "\n Şimdi kelime arama yapabilirsiniz.");
                                     } catch (IOException ex) {
                                         JOptionPane.showMessageDialog(frame1, "Dosya kaydedilirken bir hata oluştu.", "Hata", JOptionPane.ERROR_MESSAGE);
@@ -388,18 +398,23 @@ public class GUI{
                 highlightKelime(textArea, sonArananKelime);
                 highlightKelime(textArea, kelime);
                 int toplam = 0;
-                if (Objects.equals(comboBox.getSelectedItem(), "Çekirdeklere gönder.")) {
-
-                    Cekirdek cekirdek = new Cekirdek(dosyaSecme, kelime);
-                    cekirdek.cekirdeklereBolme();
-                    toplam = cekirdek.getToplamKelimeSayisi();
-
-                } else if (Objects.equals(comboBox.getSelectedItem(),"Bilgisayarlara gönder.")) {
-                    Server server=new Server(dosyaSecme, kelime);
-                    Server.dosyayiGonder();
-                    toplam = server.getToplamKelimeSayisi();
-
+                String secilenYontem = (String) comboBox.getSelectedItem();
+                dosyaGonder gonderici = null;
+                if ("Çekirdeklere gönder.".equals(secilenYontem)) {
+                    gonderici = new Cekirdek(dosyaSecme, kelime);
+                    gonderici.dosyaBol();
+                    toplam=gonderici.getToplamKelimeSayisi();
+                } else if ("Bilgisayarlara gönder.".equals(secilenYontem)) {
+                    gonderici = new Server(dosyaSecme, kelime);
+                    gonderici.dosyaBol();
+                    toplam=gonderici.getToplamKelimeSayisi();
                 }
+
+//                if (gonderici != null) {
+//                    gonderici.dosyaBol();
+//                    kelimeKarakterSayisiGuncelle(textArea.getText(), lblKelime, lblKarakter);
+//                }
+
 
 
                 UIManager.put("OptionPane.yesButtonText", "Evet");
