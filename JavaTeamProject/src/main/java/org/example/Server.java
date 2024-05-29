@@ -3,15 +3,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-
 import java.io.*;
 
 public class Server extends dosyaGonder {
     private static String[] serverIPs = {"192.168.43.237", "192.168.43.175", "192.168.43.77"}; // Sunucu IP adresleri
     private static int[] ports = {7755, 7755, 7756}; // Sunucu port numaraları
 
-    public Server(File dosyaYolu, String txtKelime) {
-        super(dosyaYolu, txtKelime);
+    public Server(File dosyaYolu, String arananKelime) {
+        super(dosyaYolu, arananKelime);
     }
 
     @Override
@@ -71,8 +70,8 @@ public class Server extends dosyaGonder {
 
     private static int dosyaParcasiniGonder(String content, String arananKelime, String serverIP, int port, String partFileName) throws IOException {
         try (Socket socket = new Socket(serverIP, port);
-             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-             DataInputStream dis = new DataInputStream(socket.getInputStream())) {
+             DataOutputStream dos = new DataOutputStream(socket.getOutputStream()); //İstemciye bir veri göndermek istenildiğinde getOutputStream metodu kullanılır.
+             DataInputStream dis = new DataInputStream(socket.getInputStream())) { // Socket sınıfında yer alan getInputStream metodu ile istemciden gelen veriler okunmuştur.
 
             byte[] contentBytes = content.getBytes();
 
