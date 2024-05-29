@@ -63,8 +63,8 @@ public class EmailGonder extends JFrame {
         }
 
         // Mail gönderme işlemi
-        final String userName = "suedanursarican233@gmail.com"; // Gönderen e-posta adresi
-        final String password = "qljp rdoh qxry tufx"; // Gönderen e-posta şifresi
+        final String userName = "parallelfileprocessing@gmail.com"; // Gönderen e-posta adresi
+        final String password = "e k f s i u d u r c k t j f c o"; // Gönderen e-posta şifresi
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
