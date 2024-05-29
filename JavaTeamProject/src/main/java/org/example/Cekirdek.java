@@ -33,7 +33,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
     }
 
     public void cekirdeklereBolme() {
-        int parcaBoyutu = 4096; // Parça boyutu (örneğin, 1 KB)
+        int parcaBoyutu = 8192; // Parça boyutu (örneğin, 1 KB)
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dosyaYolu), "UTF-8"))) {
             char[] buffer = new char[parcaBoyutu];
