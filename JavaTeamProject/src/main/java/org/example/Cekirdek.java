@@ -31,6 +31,8 @@ public class Cekirdek extends dosyaGonder implements Serializable {
         int parcaBoyutu = 8192; // Parça boyutu (örneğin, 32 KB)
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dosyaYolu), "UTF-8"))) {
+            //Bu yapı, dosyayı UTF-8 karakter kodlamasıyla okumak için bir zincirleme (chained) yapı oluşturur:
+            // önce FileInputStream ile dosya okunur, sonra InputStreamReader ile karakterlere dönüştürülür, en son da BufferedReader ile tamponlanır.
             char[] buffer = new char[parcaBoyutu];
             int byteOkuma;
             int parcaNumarasi = 1;
@@ -39,7 +41,8 @@ public class Cekirdek extends dosyaGonder implements Serializable {
 
             ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
             List<Future<Integer>> futures = new ArrayList<>();
-
+            //Future nesneleri, çoklu iş parçacıklarının (thread'lerin) çalışmasını temsil eden nesnelerdir
+            // ve iş parçacıklarının geri dönüş değerlerini almayı sağlar.
             String kalanVeri = "";
 
             while ((byteOkuma = reader.read(buffer)) != -1) {
@@ -55,8 +58,8 @@ public class Cekirdek extends dosyaGonder implements Serializable {
                 String currentPart = parcaVeri.substring(0, lastSpaceIdx);
                 kalanVeri = parcaVeri.substring(lastSpaceIdx);
 
-                Future<Integer> future = executorService.submit(new Worker(currentPart, arananKelime));
-                futures.add(future);
+                Future<Integer> future = executorService.submit(new Worker(currentPart, arananKelime)); //submit yöntemi, iş parçacığını thread havuzuna gönderir ve bir Future nesnesi döndürür.
+                futures.add(future);                                                                    //Bu nesne, iş parçacığının geri dönüş değerini temsil eder.
                 parcaNumarasi++;
             }
 
@@ -85,7 +88,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
     }
 
     // Worker sınıfı: Callable<Integer> arayüzünü uygulayan iş parçacığı sınıfı
-    private static class Worker implements Callable<Integer> {
+    private static class Worker implements Callable<Integer> { // Calleble arayüzü, bir işlemin sonucunu döndürmek için kullanılır.
         private String data;
         private String word;
 
