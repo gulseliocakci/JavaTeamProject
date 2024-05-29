@@ -21,7 +21,7 @@ public class Server extends dosyaGonder {
 
     @Override
     public void dosyayiIsle() {
-        int numberOfServers = getSunucuSayisi() ;
+        int serverSayisi = getSunucuSayisi() ;
 
         File secilenDosya = new File(String.valueOf(dosyaYolu));
 
@@ -37,13 +37,13 @@ public class Server extends dosyaGonder {
 
             // Dosya içeriğini belirtilen sayıda parçaya böl
             String contentStr = content.toString();
-            int[] splitIndices = parcaIndeksleriniBulma(contentStr, numberOfServers); // Bölünmüş indeksler
+            int[] splitIndices = parcaIndeksleriniBulma(contentStr, serverSayisi); // Bölünmüş indeksler
 
             // Parçaları ayrı ayrı sunuculara gönder ve sonuçları al
             int kelimeninGecmeSayisi = 0;
-            for (int i = 0; i < numberOfServers; i++) {
+            for (int i = 0; i < serverSayisi; i++) {
                 int start = (i == 0) ? 0 : splitIndices[i - 1];
-                int end = (i == numberOfServers - 1) ? contentStr.length() : splitIndices[i];
+                int end = (i == serverSayisi - 1) ? contentStr.length() : splitIndices[i];
                 String part = contentStr.substring(start, end);
                 System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
                 kelimeninGecmeSayisi += dosyaParcasiniGonder(part, arananKelime, serverIPs[i], ports[i], secilenDosya.getName());

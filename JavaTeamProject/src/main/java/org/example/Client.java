@@ -1,4 +1,4 @@
-/*package org.example;
+package org.example;
 
 import java.io.*;
 import java.net.*;
@@ -43,7 +43,7 @@ public class Client {
                     }
 
                     String icerik = new String(baos.toByteArray());
-                    int gecmeSayisi = countOccurrences(icerik, aramaTerimi);
+                    int gecmeSayisi = kelimeGecmeHesaplama(icerik, aramaTerimi);
 
                     // Sonuçları istemciye gönder
                     dos.writeInt(gecmeSayisi);
@@ -57,7 +57,7 @@ public class Client {
         }
     }
 
-    private static int countOccurrences(String content, String searchTerm) {
+    private static int kelimeGecmeHesaplama(String content, String searchTerm) {
     int count = 0;
     String contentLower = content.toLowerCase();
     String searchTermLower = searchTerm.toLowerCase();
@@ -70,4 +70,3 @@ public class Client {
 }
 
 }
-*/

@@ -11,10 +11,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
-import org.example.Cekirdek;
-import org.example.Server;
-import org.example.dosyaGonder;
-
 
 public class GUI {
     private static File dosyaSecme = null;
