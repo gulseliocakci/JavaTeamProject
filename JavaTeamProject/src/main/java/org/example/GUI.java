@@ -93,10 +93,10 @@ public class GUI {
         gbc.gridy = 0;
         JButton btnDosya = new JButton();
         try {
-            ImageIcon selectButtonIcon = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/dosya.png")));
-            Image selectButtonImage = selectButtonIcon.getImage();
-            Image scaledSelectButtonImage = selectButtonImage.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-            btnDosya.setIcon(new ImageIcon(scaledSelectButtonImage));
+            ImageIcon btnSecmeIkonu = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/dosya.png")));
+            Image secmeButonuResmi = btnSecmeIkonu.getImage();
+            Image secmeButonuResmiBoyutu = secmeButonuResmi.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            btnDosya.setIcon(new ImageIcon(secmeButonuResmiBoyutu));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -329,8 +329,8 @@ public class GUI {
                         try {
                             ImageIcon kaydetButonuIkonu = new ImageIcon(Objects.requireNonNull(GUI.class.getResource("/resources/kaydet.png")));
                             Image kaydetButonuResmi = kaydetButonuIkonu.getImage();
-                            Image kaydetButonuResimBoyutu = kaydetButonuResmi.getScaledInstance(110, 30, Image.SCALE_SMOOTH);
-                            btnKaydet.setIcon(new ImageIcon(kaydetButonuResimBoyutu));
+                            Image kaydetButonuResmiBoyutu = kaydetButonuResmi.getScaledInstance(110, 30, Image.SCALE_SMOOTH);
+                            btnKaydet.setIcon(new ImageIcon(kaydetButonuResmiBoyutu));
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }

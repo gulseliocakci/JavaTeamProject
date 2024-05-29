@@ -40,20 +40,20 @@ public class Cekirdek extends dosyaGonder implements Serializable {
             ExecutorService executorService = Executors.newFixedThreadPool(cekirdekSayisi);
             List<Future<Integer>> futures = new ArrayList<>();
 
-            String remainingData = "";
+            String kalanVeri = "";
 
             while ((byteOkuma = reader.read(buffer)) != -1) {
                 System.out.println("Parça " + parcaNumarasi + " gönderiliyor...");
-                String chunkData = remainingData + new String(buffer, 0, byteOkuma);
+                String parcaVeri = kalanVeri + new String(buffer, 0, byteOkuma);
 
                 // Parçanın sonundaki son boşluk karakterini bul
-                int lastSpaceIdx = chunkData.lastIndexOf(' ');
+                int lastSpaceIdx = parcaVeri.lastIndexOf(' ');
                 if (lastSpaceIdx == -1) {
-                    lastSpaceIdx = chunkData.length(); // Boşluk yoksa tüm parça işlenir
+                    lastSpaceIdx = parcaVeri.length(); // Boşluk yoksa tüm parça işlenir
                 }
 
-                String currentPart = chunkData.substring(0, lastSpaceIdx);
-                remainingData = chunkData.substring(lastSpaceIdx);
+                String currentPart = parcaVeri.substring(0, lastSpaceIdx);
+                kalanVeri = parcaVeri.substring(lastSpaceIdx);
 
                 Future<Integer> future = executorService.submit(new Worker(currentPart, arananKelime));
                 futures.add(future);
@@ -61,8 +61,8 @@ public class Cekirdek extends dosyaGonder implements Serializable {
             }
 
             // Son kalan kısmı da işleme ekle
-            if (!remainingData.isEmpty()) {
-                Future<Integer> future = executorService.submit(new Worker(remainingData, arananKelime));
+            if (!kalanVeri.isEmpty()) {
+                Future<Integer> future = executorService.submit(new Worker(kalanVeri, arananKelime));
                 futures.add(future);
             }
 
@@ -78,7 +78,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
             }
 
             System.out.println("Toplam kelime sayısı: " + toplamKelimeSayisi);
-            executorService.shutdown();
+            executorService.shutdown(); //iş parçacığı havuzunu kapatmak için kullanılır
         } catch (IOException e) {
             e.printStackTrace();
         }
