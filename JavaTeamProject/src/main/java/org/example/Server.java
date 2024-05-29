@@ -27,23 +27,23 @@ public class Server extends dosyaGonder {
         try {
             // Dosyanın içeriğini bir StringBuilder'a yükle
             BufferedReader reader = new BufferedReader(new FileReader(secilenDosya));
-            StringBuilder content = new StringBuilder();
+            StringBuilder metin = new StringBuilder();
             int ch;
             while ((ch = reader.read()) != -1) {
-                content.append((char) ch);
+                metin.append((char) ch);
             }
             reader.close();
 
             // Dosya içeriğini belirtilen sayıda parçaya böl
-            String contentStr = content.toString();
-            int[] splitIndices = parcaIndeksleriniBulma(contentStr, serverSayisi); // Bölünmüş indeksler
+            String metinStr = metin.toString();
+            int[] splitIndices = parcaIndeksleriniBulma(metinStr, serverSayisi); // Bölünmüş indeksler
 
             // Parçaları ayrı ayrı sunuculara gönder ve sonuçları al
             int kelimeninGecmeSayisi = 0;
             for (int i = 0; i < serverSayisi; i++) {
                 int start = (i == 0) ? 0 : splitIndices[i - 1];
-                int end = (i == serverSayisi - 1) ? contentStr.length() : splitIndices[i];
-                String part = contentStr.substring(start, end);
+                int end = (i == serverSayisi - 1) ? metinStr.length() : splitIndices[i];
+                String part = metinStr.substring(start, end);
                 System.out.println("Sunucuya gönderiliyor: IP = " + serverIPs[i] + ", Port = " + ports[i]);
                 kelimeninGecmeSayisi += dosyaParcasiniGonder(part, arananKelime, serverIPs[i], ports[i], secilenDosya.getName());
                 toplamKelimeSayisi = kelimeninGecmeSayisi;
@@ -55,25 +55,25 @@ public class Server extends dosyaGonder {
         }
     }
 
-    private static int[] parcaIndeksleriniBulma(String content, int parcaSayisi) {
+    private static int[] parcaIndeksleriniBulma(String metin, int parcaSayisi) {
         int[] indeksler = new int[parcaSayisi - 1];
-        int parcaBoyutu = content.length() / parcaSayisi;
+        int parcaBoyutu = metin.length() / parcaSayisi;
         for (int i = 1; i < parcaSayisi; i++) {
-            int mid = parcaBoyutu * i;
-            while (mid < content.length() && !Character.isWhitespace(content.charAt(mid)) && content.charAt(mid) != '\n')  {
-                mid++;
+            int sonindeks = parcaBoyutu * i;
+            while (sonindeks < metin.length() && !Character.isWhitespace(metin.charAt(sonindeks)) && metin.charAt(sonindeks) != '\n')  {
+                sonindeks++;
             }
-            indeksler[i - 1] = mid;
+            indeksler[i - 1] = sonindeks;  // her parçanın son indeksini diziye kaydeder.
         }
         return indeksler;
     }
 
-    private static int dosyaParcasiniGonder(String content, String arananKelime, String serverIP, int port, String partFileName) throws IOException {
+    private static int dosyaParcasiniGonder(String metin, String arananKelime, String serverIP, int port, String partFileName) throws IOException {
         try (Socket socket = new Socket(serverIP, port);
              DataOutputStream dos = new DataOutputStream(socket.getOutputStream()); //İstemciye bir veri göndermek istenildiğinde getOutputStream metodu kullanılır.
              DataInputStream dis = new DataInputStream(socket.getInputStream())) { // Socket sınıfında yer alan getInputStream metodu ile istemciden gelen veriler okunmuştur.
 
-            byte[] contentBytes = content.getBytes();
+            byte[] contentBytes = metin.getBytes();
 
             // Dosya bilgilerini ve aranacak kelimeyi gönder
             dos.writeUTF(partFileName);
