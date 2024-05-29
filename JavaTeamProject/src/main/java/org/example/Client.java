@@ -57,13 +57,17 @@ public class Client {
         }
     }
 
-    private static int kelimeGecmeHesaplama(String content, String searchTerm) {
-        int count = 0;
-        int index = 0;
-        while ((index = content.indexOf(searchTerm, index)) != -1) {
-            count++;
-            index += searchTerm.length();
-        }
-        return count;
+    private static int countOccurrences(String content, String searchTerm) {
+    int count = 0;
+    String contentLower = content.toLowerCase();
+    String searchTermLower = searchTerm.toLowerCase();
+    int index = 0;
+    while ((index = contentLower.indexOf(searchTermLower, index)) != -1) {
+        count++;
+        index += searchTermLower.length();
     }
-}*/
+    return count;
+}
+
+}
+*/
