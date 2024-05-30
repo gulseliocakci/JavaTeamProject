@@ -17,9 +17,6 @@ public abstract class dosyaGonder extends GUI implements Serializable {
         return toplamKelimeSayisi;
     }
 
-    public abstract void dosyaBol();
 
-    public void dosyayiIsle() {
-        // Alt sınıflar tarafından geçersiz kılınacak
-    }
+    public abstract void dosyayiIsle();
 }

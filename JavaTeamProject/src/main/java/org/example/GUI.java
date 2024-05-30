@@ -398,11 +398,11 @@ public class GUI {
                 dosyaGonder gonderici = null;
                 if ("Çekirdeklere gönder.".equals(secilenYontem)) {
                     gonderici = new Cekirdek(dosyaSecme, kelime);
-                    gonderici.dosyaBol();
+                    gonderici.dosyayiIsle();
                     toplam=gonderici.getToplamKelimeSayisi();
                 } else if ("Bilgisayarlara gönder.".equals(secilenYontem)) {
                     gonderici = new Server(dosyaSecme, kelime);
-                    gonderici.dosyaBol();
+                    gonderici.dosyayiIsle();
                     toplam=gonderici.getToplamKelimeSayisi();
                 }
 
@@ -443,6 +443,16 @@ public class GUI {
         String[] kelimeler = text.split("\\s+");
         lblKelime.setText("Kelime sayısı: " + kelimeler.length);
         lblKarakter.setText("Karakter sayısı: " + (text.length() - 1));
+    }
+    private static boolean isTextFile(File file) {
+        String[] metinDosyasiUzantilari = {"txt", "java", "xml", "html", "htm", "csv", "json"};
+        String dosyaAdi = file.getName();
+        for (String extension : metinDosyasiUzantilari) {
+            if (dosyaAdi.endsWith("." + extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void highlightKelime(JTextArea textArea, String word) {

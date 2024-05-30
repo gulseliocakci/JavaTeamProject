@@ -19,7 +19,7 @@ public class Cekirdek extends dosyaGonder implements Serializable {
     }
 
     @Override
-    public void dosyaBol() {
+    public void dosyayiIsle() {
         cekirdeklereBolme();
     }
 
