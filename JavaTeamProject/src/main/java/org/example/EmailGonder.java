@@ -83,7 +83,7 @@ public class EmailGonder extends JFrame {
             mesaj.setFrom(new InternetAddress(userName)); // E-posta göndericisini belirler
             mesaj.addRecipient(Message.RecipientType.TO, new InternetAddress(emailGiris));
             mesaj.setSubject("Dosyada kelime bulma");
-            mesaj.setText("Merhabalar,\n\nİlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n\n- Aranan Kelime: " + kelime + "\n- Toplam Bulunan Sayı: " + toplam);
+            mesaj.setText("Merhabalar,\n\nİlgili metin dosyasındaki kelime sayısını hesaplandı. Sonuçlar aşağıdaki gibidir:\n\n- Aranan Kelime: " + kelime + "\n- Kelimenin metinde geçme sayısı: " + toplam);
             System.out.println("Mail Gönderiliyor...");
             Transport.send(mesaj);
             System.out.println("Mail Başarıyla Gönderildi.");
