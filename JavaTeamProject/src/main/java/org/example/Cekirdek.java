@@ -23,12 +23,9 @@ public class Cekirdek extends dosyaGonder implements Serializable {
         cekirdeklereBolme();
     }
 
-    public void setToplamKelimeSayisi(int toplamKelimeSayisi) {
-        this.toplamKelimeSayisi = toplamKelimeSayisi;
-    }
 
     public void cekirdeklereBolme() {
-        int parcaBoyutu = 8192; // Parça boyutu (örneğin, 32 KB)
+        int parcaBoyutu = 8192;
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dosyaYolu), "UTF-8"))) {
             //Bu yapı, dosyayı UTF-8 karakter kodlamasıyla okumak için bir zincirleme (chained) yapı oluşturur:
