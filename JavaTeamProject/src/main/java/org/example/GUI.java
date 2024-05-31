@@ -16,10 +16,10 @@ public class GUI {
     private static File dosyaSecme = null;
     private static String sonArananKelime = "";
 
-    private static int sunucuSayisi;
+    private static int clientsayisi;
 
-    public static int getSunucuSayisi() {
-        return sunucuSayisi;
+    public static int getClientsayisi() {
+        return clientsayisi;
     }
 
     public static void GUIPlay() {
@@ -179,7 +179,7 @@ public class GUI {
         radioButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sunucuSayisi =1;
+                clientsayisi =1;
 
 
             }
@@ -187,14 +187,14 @@ public class GUI {
         radioButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sunucuSayisi =2;
+                clientsayisi =2;
 
             }
         });
         radioButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sunucuSayisi =3;
+                clientsayisi =3;
 
             }
         });
@@ -386,7 +386,7 @@ public class GUI {
                 }
 
                 String kelime = txtKelime.getText();
-                if (kelime.isEmpty()) {
+                if (kelime.isEmpty() || kelime.equals("Buraya yazınız...")) {
                     JOptionPane.showMessageDialog(frame1, "Lütfen aramak istediğiniz kelimeyi girin.", "Uyarı", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
@@ -442,7 +442,7 @@ public class GUI {
     private static void kelimeKarakterSayisiGuncelle(String text, JLabel lblKelime, JLabel lblKarakter) {
         String[] kelimeler = text.split("\\s+");
         lblKelime.setText("Kelime sayısı: " + kelimeler.length);
-        lblKarakter.setText("Karakter sayısı: " + (text.length() - 1));
+        lblKarakter.setText("Karakter sayısı: " + (text.length()));
     }
 
     private static void highlightKelime(JTextArea textArea, String word) {
